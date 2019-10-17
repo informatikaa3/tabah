@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "349711448774",
+    "firebase_url": "https://tabah-b8b1f.firebaseio.com",
+    "project_id": "tabah-b8b1f",
+    "storage_bucket": "tabah-b8b1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349711448774:android:ce51313bcef18863a7b5c7",
+        "android_client_info": {
+          "package_name": "com.faeddah.tabah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349711448774-bi1d7am5dau3d3nogkiv4594i8qe3ak6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faeddah.tabah",
+            "certificate_hash": "571b7b34a1107cdac5ed02ab71c89ffd77b95ba5"
+          }
+        },
+        {
+          "client_id": "349711448774-e3qc0ojmbt397numd720kh1ijc8tp00m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd4vc2Mc8sZPbRV_lP9CZ04OZza-CSn1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349711448774-e3qc0ojmbt397numd720kh1ijc8tp00m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
