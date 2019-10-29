@@ -1,4 +1,20 @@
 <resources>
-    <string name="app_name">tabah</string>
+    <string name="app_name">TABAH</string>
     <string name="areyouready">GAS</string>
+    <string name="title_activity_nav_drawer">nav_drawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_nama">Nama Pengguna</string>
+    <string name="nav_header_saldo">Rp.20.000</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="Versi_apk">Version 0.0.1</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_jual_sampah">Jual Sampah</string>
+    <string name="menu_Shopping">Shopping</string>
+    <string name="menu_setting">Settings</string>
+    <string name="menu_help_center">Help Center</string>
+    <string name="menu_about">About</string>
 </resources>
