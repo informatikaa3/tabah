@@ -1,16 +1,16 @@
-package com.faeddah.tabah.ui.tools;
+package com.faeddah.tabah.ui.Shopping;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ToolsViewModel extends ViewModel {
+public class ShoppingViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ToolsViewModel() {
+    public ShoppingViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is tools fragment");
+        mText.setValue("This is shopping fragment");
     }
 
     public LiveData<String> getText() {

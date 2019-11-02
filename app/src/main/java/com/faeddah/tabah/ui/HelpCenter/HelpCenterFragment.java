@@ -1,4 +1,4 @@
-package com.faeddah.tabah.ui.send;
+package com.faeddah.tabah.ui.HelpCenter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.faeddah.tabah.R;
 
-public class SendFragment extends Fragment {
+public class HelpCenterFragment extends Fragment {
 
-    private SendViewModel sendViewModel;
+    private HelpCenterViewModel HelpCenterViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        sendViewModel =
-                ViewModelProviders.of(this).get(SendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_send, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        HelpCenterViewModel = ViewModelProviders.of(this).get(HelpCenterViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_helpcenter, container, false);
+
+
         final TextView textView = root.findViewById(R.id.text_send);
-        sendViewModel.getText().observe(this, new Observer<String>() {
+        HelpCenterViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

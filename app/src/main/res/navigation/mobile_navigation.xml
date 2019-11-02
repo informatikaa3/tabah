@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.faeddah.tabah.ui.home.HomeFragment"
+        android:name="com.faeddah.tabah.ui.Home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
@@ -18,32 +18,32 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.faeddah.tabah.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_sell"
+        android:name="com.faeddah.tabah.ui.Sell.SellFragment"
         android:label="@string/menu_jual_sampah"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_sell" />
 
     <fragment
-        android:id="@+id/nav_tools"
-        android:name="com.faeddah.tabah.ui.tools.ToolsFragment"
+        android:id="@+id/nav_shopping"
+        android:name="com.faeddah.tabah.ui.Shopping.ShoppingFragment"
         android:label="@string/menu_Shopping"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_shopping" />
 
     <fragment
-        android:id="@+id/nav_share"
-        android:name="com.faeddah.tabah.ui.share.ShareFragment"
+        android:id="@+id/nav_settings"
+        android:name="com.faeddah.tabah.ui.Settings.SettingsFragment"
         android:label="@string/menu_setting"
-        tools:layout="@layout/fragment_share" />
+        tools:layout="@layout/fragment_settings" />
 
     <fragment
-        android:id="@+id/nav_send"
-        android:name="com.faeddah.tabah.ui.send.SendFragment"
+        android:id="@+id/nav_helpcenter"
+        android:name="com.faeddah.tabah.ui.HelpCenter.HelpCenterFragment"
         android:label="@string/menu_help_center"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_helpcenter" />
 
     <fragment
-        android:id="@+id/nav_About"
-        android:name=""
+        android:id="@+id/nav_about"
+        android:name="com.faeddah.tabah.ui.About.AboutFragment"
         android:label="@string/menu_about"
-        tools:layout=""/>
+        tools:layout="@layout/fragment_about"/>
 </navigation>
