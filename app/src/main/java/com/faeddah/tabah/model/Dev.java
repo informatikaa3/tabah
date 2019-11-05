@@ -1,4 +1,4 @@
-package com.faeddah.tabah.ui.About;
+package com.faeddah.tabah.model;
 
 public class Dev {
     private String name,detail;

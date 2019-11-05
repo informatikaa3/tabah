@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Home">
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tabahdev"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/fragment_item_about"/>
+        tools:listitem="@layout/fragment_about_item" />
 
 </RelativeLayout>

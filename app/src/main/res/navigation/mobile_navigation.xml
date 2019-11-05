@@ -7,43 +7,43 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.faeddah.tabah.ui.Home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Home.ArtikelFeed"
+        tools:layout="@layout/fragment_artikel" />
 
     <fragment
         android:id="@+id/nav_profile"
+        android:label="@null"
         android:name="com.faeddah.tabah.ui.Profile.ProfileFragment"
-        android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/nav_sell"
+        android:label="@null"
         android:name="com.faeddah.tabah.ui.Sell.SellFragment"
-        android:label="@string/menu_jual_sampah"
         tools:layout="@layout/fragment_sell" />
 
     <fragment
         android:id="@+id/nav_shopping"
+        android:label="@null"
         android:name="com.faeddah.tabah.ui.Shopping.ShoppingFragment"
-        android:label="@string/menu_Shopping"
         tools:layout="@layout/fragment_shopping" />
 
     <fragment
         android:id="@+id/nav_settings"
+        android:label="@null"
         android:name="com.faeddah.tabah.ui.Settings.SettingsFragment"
-        android:label="@string/menu_setting"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/nav_helpcenter"
+        android:label="@null"
         android:name="com.faeddah.tabah.ui.HelpCenter.HelpCenterFragment"
-        android:label="@string/menu_help_center"
         tools:layout="@layout/fragment_helpcenter" />
 
     <fragment
         android:id="@+id/nav_about"
+        android:label="@null"
         android:name="com.faeddah.tabah.ui.About.AboutFragment"
-        android:label="@string/menu_about"
         tools:layout="@layout/fragment_about"/>
 </navigation>

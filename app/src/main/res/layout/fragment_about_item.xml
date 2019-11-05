@@ -8,8 +8,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_dev_photo"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         tools:src="@android:color/darker_gray"/>
@@ -28,7 +28,8 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/img_dev_photo"
             android:layout_toEndOf="@id/img_dev_photo"
-            android:textSize="16sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="22sp"
             android:textStyle="bold"
             tools:text="ini muncul nama"/>
 
@@ -36,8 +37,9 @@
             android:id="@+id/tv_dev_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="18sp"
+            android:maxLines="1"
             android:layout_toRightOf="@id/img_dev_photo"
             android:layout_toEndOf="@id/img_dev_photo"
             tools:text="Ini muncul npm"/>

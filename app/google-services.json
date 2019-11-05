@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "349711448774-c96sv05c0o2srov9caqmm57m6ursjnfl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.faeddah.tabah",
+            "certificate_hash": "2e46ef8235a6d55825d8217cf5d83dd282126eac"
+          }
+        },
+        {
           "client_id": "349711448774-bi1d7am5dau3d3nogkiv4594i8qe3ak6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

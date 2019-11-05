@@ -1,10 +1,11 @@
-package com.faeddah.tabah.ui.About;
+package com.faeddah.tabah.dummydata;
 
+import com.faeddah.tabah.model.Dev;
 import com.faeddah.tabah.R;
 
 import java.util.ArrayList;
 
-public class dummyData {
+public class DataDev {
     private static String[] namaDeveloper = {"Anggi Putri P","Denis Aji M","Dimas Putra P","Erni Susilawati","Fathur Waldi L"};
     private static String[] detailDeveloper = {
             "Dia Perempuan",
@@ -22,7 +23,7 @@ public class dummyData {
             R.drawable.team_fathur
     };
 
-    static ArrayList<Dev> getListData(){
+    public static ArrayList<Dev> getListData(){
         ArrayList<Dev> list = new ArrayList<>();
         for (int i=0; i<namaDeveloper.length;i++){
             Dev developer = new Dev();

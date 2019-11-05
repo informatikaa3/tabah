@@ -1,6 +1,4 @@
-package com.faeddah.tabah.ui.About;
-import com.faeddah.tabah.R;
-
+package com.faeddah.tabah.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.faeddah.tabah.R;
+import com.faeddah.tabah.model.Dev;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class AdapterListDev extends RecyclerView.Adapter<AdapterListDev.ListView
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_item_about, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_about_item, viewGroup, false);
         return new ListViewHolder(view);
 
     }
@@ -45,8 +45,11 @@ public class AdapterListDev extends RecyclerView.Adapter<AdapterListDev.ListView
 
     @Override
     public int getItemCount() {
+
         return listDev.size();
     }
+
+
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFoto;
