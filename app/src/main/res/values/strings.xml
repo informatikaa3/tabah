@@ -20,4 +20,14 @@
     <string name="txt_shopping">Shopping</string>
     <string name="txt_help_center">Help Center</string>
     <string name="txt_about">About</string>
+    <string name="cek_ketiga">CEK KETIGA</string>
+    <string name="rp_20_000">Rp. 20.000</string>
+    <string name="cau_cirebon">CAU CIREBON</string>
+    <string name="histori_transaksi">Histori Transaksi</string>
+    <string name="cek_dulu">CEK DULU</string>
+    <string name="cek_kedua">CEK KEDUA</string>
+    <string name="tukar_saldo">Tukar Saldo</string>
+    <string name="pulsa">Pulsa</string>
+    <string name="sedekah">Sedekah</string>
+    <string name="bayar">Bayar</string>
 </resources>

@@ -15,11 +15,12 @@
         android:layout_gravity="center_horizontal">
         <LinearLayout
             android:id="@+id/ll_top"
-            android:background="@color/primaryDark"
+            android:background="@drawable/asset_shape"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:orientation="vertical"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:radius="10dp">
             <ImageView
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
@@ -31,8 +32,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CAU CIREBON"
-                android:textColor="#fff"
+                android:text="@string/cau_cirebon"
+                android:textColor="@color/primaryDark"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
             <RelativeLayout
@@ -42,70 +43,141 @@
                 android:layout_marginBottom="20dp">
                 <ImageButton
                     android:id="@+id/img_saldo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_slideshow"/>
+                    android:background="@drawable/asset_round_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_cycle"/>
                 <TextView
                     android:id="@+id/tv_saldo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="Rp. 20.000"
+                    android:text="@string/rp_20_000"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:textColor="@color/graylight"
+                    android:textColor="@color/primaryDark"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/img_saldo"/>
 
                 <ImageButton
                     android:layout_centerVertical="true"
-                    android:background="@color/primaryDark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_menu_gallery"
+                    android:background="@drawable/asset_round_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_add"
                     android:layout_marginLeft="20dp"
                     android:layout_toRightOf="@+id/tv_saldo"/>
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout
+
             android:id="@+id/ll_mid"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/ll_top"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:paddingHorizontal="8dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/tv_ll_mid_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="@color/primaryDark"
-                android:text="Hsitori Transaksi"
-                android:textSize="20dp"/>
+                android:text="@string/histori_transaksi"
+                android:textSize="21dp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_mid_sec"
+            android:layout_below="@+id/ll_mid"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="@dimen/asset_radius_card"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15sp"
+                android:layout_width="80dp"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/cek_dulu"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="@dimen/asset_radius_card"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15sp"
+                android:layout_width="80dp"
+                android:layout_height="50dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/cek_kedua"
+                    android:textStyle="bold"
+                    android:textSize="15sp"/>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="@dimen/asset_radius_card"
+                android:layout_width="80dp"
+                android:layout_height="50sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15sp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/cek_kedua"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+            <ImageButton
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
+                android:background="@drawable/asset_round_button"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:src="@drawable/ic_arrow_right"
+                />
+
+
+<!--            </LinearLayout>-->
+
+
+
         </LinearLayout>
 
         <LinearLayout
-            android:paddingVertical="20dp"
             android:id="@+id/ll_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_mid"
+            android:layout_below="@+id/ll_mid_sec"
             android:layout_gravity="center"
-            android:background="@color/primaryDark"
+            android:background="@color/cardview_light_background"
             android:orientation="vertical">
             <TextView
-                android:paddingVertical="0dp"
+                android:layout_marginBottom="5dp"
                 android:paddingHorizontal="8dp"
                 android:id="@+id/tv_ll_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tukar Saldo"
+                android:text="@string/tukar_saldo"
                 android:textSize="21sp"
-                android:textColor="@color/graylight"
+                android:textColor="@color/primaryDark"
                 android:textStyle="bold" />
             <RelativeLayout
+                android:background="@drawable/asset_shape"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="200dp">
                 <ImageButton
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/asset_round_button"
                     android:id="@+id/bt_ll_bottom_left"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/ic_menu_camera"
                     android:layout_width="80dp"
                     android:layout_height="80dp"/>
@@ -113,13 +185,16 @@
                     android:id="@+id/tv_ll_bottom_left"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pulsa"
+                    android:text="@string/pulsa"
                     android:textStyle="bold"
                     android:textSize="21sp"
-                    android:textColor="@color/graylight"
+                    android:textColor="@color/primaryDark"
                     android:layout_below="@+id/bt_ll_bottom_left"
-                    android:layout_marginLeft="32dp"/>
+                    android:layout_marginLeft="25dp"/>
                 <ImageButton
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/asset_round_button"
                     android:id="@+id/bt_ll_bottom_center"
                     android:layout_marginLeft="40dp"
                     android:src="@drawable/ic_menu_gallery"
@@ -130,14 +205,16 @@
                     android:id="@+id/tv_ll_bottom_center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sedekah"
+                    android:text="@string/sedekah"
                     android:textStyle="bold"
                     android:textSize="21sp"
-                    android:textColor="@color/graylight"
+                    android:textColor="@color/primaryDark"
                     android:layout_below="@+id/bt_ll_bottom_center"
                     android:layout_toRightOf="@+id/tv_ll_bottom_left"
-                    android:layout_marginLeft="55dp"/>
+                    android:layout_marginLeft="51sp"/>
                 <ImageButton
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/asset_round_button"
                     android:id="@+id/bt_ll_bottom_right"
                     android:layout_toRightOf="@+id/bt_ll_bottom_center"
                     android:layout_marginLeft="40dp"
@@ -147,10 +224,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bayar"
+                    android:text="@string/bayar"
                     android:textStyle="bold"
                     android:textSize="21sp"
-                    android:textColor="@color/graylight"
+                    android:textColor="@color/primaryDark"
                     android:layout_below="@+id/bt_ll_bottom_right"
                     android:layout_toRightOf="@+id/tv_ll_bottom_center"
                     android:layout_marginLeft="51dp"/>
