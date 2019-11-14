@@ -2,7 +2,7 @@ package com.faeddah.tabah.model;
 
 import java.util.Date;
 
-public class Sell {
+public class Shopping {
 
     //TODO: Harga barang masalah ...
     private String judul_barang;
@@ -13,7 +13,7 @@ public class Sell {
 //    private long harga_barang;
     private Date tanggal_input;
 
-    public Sell() {
+    public Shopping() {
     }
 
 

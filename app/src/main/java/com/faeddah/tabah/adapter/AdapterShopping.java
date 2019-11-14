@@ -1,8 +1,6 @@
 package com.faeddah.tabah.adapter;
 
-import android.os.Bundle;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,29 +11,25 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.R;
-import com.faeddah.tabah.model.Sell;
-import com.faeddah.tabah.ui.Sell.SellDetail;
+import com.faeddah.tabah.model.Shopping;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-import org.w3c.dom.Text;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdapterSell extends FirestoreRecyclerAdapter<Sell, AdapterSell.SellViewHolder> {
+public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterShopping.SellViewHolder> {
 
     private long teakhirklik = 0 ;
 
-    public AdapterSell(@Nullable FirestoreRecyclerOptions<Sell> options) {
+    public AdapterShopping(@Nullable FirestoreRecyclerOptions<Shopping> options) {
         super(options);
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull final SellViewHolder holder, int position, @NonNull final Sell model) {
+    protected void onBindViewHolder(@NonNull final SellViewHolder holder, int position, @NonNull final Shopping model) {
         holder.judul_barang.setText(model.getJudul_barang());
         holder.deskripsi_barang.setText(model.getDeskripsi_barang());
         holder.hargaBarang.setText("99999");
@@ -73,7 +67,7 @@ public class AdapterSell extends FirestoreRecyclerAdapter<Sell, AdapterSell.Sell
 //                oper.putString("harga_barang", harga_barang);
 //                oper.putString("img_sell", imgurl_sell);
 //
-//                SellDetail sellDetail = new SellDetail();
+//                ShoppingDetail sellDetail = new ShoppingDetail();
 //
 //                //jeder
 //                sellDetail.setArguments(oper);

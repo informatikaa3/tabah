@@ -15,11 +15,11 @@
             android:icon="@drawable/ic_menu_person"
             android:title="@string/menu_profile" />
         <item
-            android:id="@+id/nav_shopping"
+            android:id="@+id/nav_sell"
             android:icon="@drawable/ic_attach_money_"
             android:title="@string/menu_jual_sampah"/>
         <item
-            android:id="@+id/nav_sell"
+            android:id="@+id/nav_shopping"
             android:icon="@drawable/ic_shopping_cart"
             android:title="@string/txt_shopping"
             />

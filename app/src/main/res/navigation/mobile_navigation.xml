@@ -18,15 +18,15 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
-        android:id="@+id/nav_sell"
+        android:id="@+id/nav_shopping"
         android:label="@null"
-        android:name="com.faeddah.tabah.ui.Sell.SellFragment"
+        android:name="com.faeddah.tabah.ui.Shopping.ShoppingFeed"
         tools:layout="@layout/fragment_sell" />
 
     <fragment
-        android:id="@+id/nav_shopping"
+        android:id="@+id/nav_sell"
         android:label="@null"
-        android:name="com.faeddah.tabah.ui.Shopping.ShoppingFragment"
+        android:name="com.faeddah.tabah.ui.Sell.SellFragment"
         tools:layout="@layout/fragment_shopping" />
 
     <fragment

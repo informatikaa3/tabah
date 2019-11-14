@@ -1,4 +1,4 @@
-package com.faeddah.tabah.ui.Sell;
+package com.faeddah.tabah.ui.Shopping;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +13,14 @@ import com.faeddah.tabah.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class SellDetail extends BaseFragment {
+public class ShoppingDetail extends BaseFragment {
 
     private String judul_barang,deskripsi_barang,harga_barang,img_sell;
     private TextView tv_jdlsell, tv_deskripsi, tv_price;
     private ImageView imgview;
 
-    public SellDetail() {}
+    public ShoppingDetail() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

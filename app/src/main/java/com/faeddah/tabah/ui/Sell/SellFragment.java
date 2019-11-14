@@ -1,4 +1,4 @@
-package com.faeddah.tabah.ui.Shopping;
+package com.faeddah.tabah.ui.Sell;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,14 +14,14 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.faeddah.tabah.R;
 
-public class ShoppingFragment extends Fragment {
+public class SellFragment extends Fragment {
 
-    private ShoppingViewModel shoppingViewModel;
+    private SellViewModel shoppingViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         shoppingViewModel =
-                ViewModelProviders.of(this).get(ShoppingViewModel.class);
+                ViewModelProviders.of(this).get(SellViewModel.class);
         View root = inflater.inflate(R.layout.fragment_shopping, container, false);
         final TextView textView = root.findViewById(R.id.text_tools);
         shoppingViewModel.getText().observe(this, new Observer<String>() {
