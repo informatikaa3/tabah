@@ -41,7 +41,7 @@ public class ShoppingFeed extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sell, container, false);
+        View view = inflater.inflate(R.layout.fragment_shopping, container, false);
 
 
         showRecyclerView();

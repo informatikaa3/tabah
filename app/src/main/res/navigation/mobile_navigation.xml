@@ -21,13 +21,13 @@
         android:id="@+id/nav_shopping"
         android:label="@null"
         android:name="com.faeddah.tabah.ui.Shopping.ShoppingFeed"
-        tools:layout="@layout/fragment_sell" />
+        tools:layout="@layout/fragment_shopping" />
 
     <fragment
         android:id="@+id/nav_sell"
         android:label="@null"
         android:name="com.faeddah.tabah.ui.Sell.SellFragment"
-        tools:layout="@layout/fragment_shopping" />
+        tools:layout="@layout/fragment_sell" />
 
     <fragment
         android:id="@+id/nav_settings"

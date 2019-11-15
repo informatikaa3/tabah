@@ -80,7 +80,7 @@ public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterS
     @NonNull
     @Override
     public SellViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_sell_feed, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_shopping_feed, parent, false);
 
         return new SellViewHolder(view);
     }

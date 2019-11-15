@@ -31,4 +31,7 @@
     <string name="pulsa">Pulsa</string>
     <string name="sedekah">Sedekah</string>
     <string name="bayar">Bayar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

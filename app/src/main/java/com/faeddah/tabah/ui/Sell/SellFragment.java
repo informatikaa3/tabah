@@ -12,24 +12,38 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
+import com.faeddah.tabah.Sell;
 
-public class SellFragment extends Fragment {
+public class SellFragment extends BaseFragment {
 
-    private SellViewModel shoppingViewModel;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        shoppingViewModel =
-                ViewModelProviders.of(this).get(SellViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_shopping, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        shoppingViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_sell,container,false);
+        initViews(view);
+        return view;
+    }
+
+    @Override
+    public void findViews(View view) {
+
+    }
+
+    @Override
+    public void initViews(View view) {
+        Sell sell = (Sell) getActivity();
+        sell.initViews();
+    }
+
+    @Override
+    public void initListeners(View view) {
+
     }
 }

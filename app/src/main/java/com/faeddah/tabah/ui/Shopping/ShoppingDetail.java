@@ -31,7 +31,7 @@ public class ShoppingDetail extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_sell_feed,container, false);
+        View view = inflater.inflate(R.layout.fragment_shopping_feed,container, false);
         findViews(view);
         initViews(view);
         initListeners(view);
