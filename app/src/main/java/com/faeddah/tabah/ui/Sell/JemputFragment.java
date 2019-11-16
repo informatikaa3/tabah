@@ -22,18 +22,4 @@ public class JemputFragment extends Fragment {
         setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_sell_jemput, container, false);
     }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_jemput, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.action_antar){
-            Toast.makeText(getActivity(),"Click on "+ item.getItemId(),Toast.LENGTH_LONG)
-                    .show();
-        }
-        return true;
-    }
 }

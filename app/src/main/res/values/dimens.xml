@@ -7,4 +7,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="asset_radius_card">2dp</dimen>
     <dimen name="badge_count_textsize">10sp</dimen>
+    <dimen name="padding_editText">5dp</dimen>
 </resources>

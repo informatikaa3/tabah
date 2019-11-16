@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -15,6 +17,12 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@android:color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            android:background="@android:color/black"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,6 +43,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/padding_editText"
                 android:hint="Jenis Sampah"
                 android:ems="10"
                 android:maxLines="1"
@@ -54,6 +63,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/padding_editText"
                 android:hint="pilih kota"
                 android:drawableRight="@drawable/ic_arrow_drop_down"
                 android:background="@drawable/asset_shape_editext"/>
@@ -72,6 +82,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/padding_editText"
                 android:maxLines="1"
                 android:hint="pilih pengepul"
                 android:drawableRight="@drawable/ic_arrow_drop_down"
@@ -91,6 +102,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:padding="@dimen/padding_editText"
                 android:maxLines="3"
                 android:hint="alamat jemput"
                 android:background="@drawable/asset_shape_editext"/>
@@ -103,17 +115,18 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"/>
             <Button
+
                 android:id="@+id/btn_antar_save"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:text="SAVE"
                 android:textColor="@android:color/white"
                 android:background="@android:color/holo_blue_light"
                 android:layout_marginRight="10dp"/>
             <Button
                 android:id="@+id/btn_antar_cancel"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
                 android:text="Cancel"
                 android:textColor="@android:color/white"
                 android:background="@android:color/black"/>
