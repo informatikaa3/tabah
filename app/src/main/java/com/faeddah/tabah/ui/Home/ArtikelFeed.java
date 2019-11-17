@@ -53,7 +53,7 @@ public class ArtikelFeed extends BaseFragment {
         super.onStart();
 
         if (ConnectivityHelper.isConnectedToNetwork(getContext())){
-            Snackbar.make(getView(), "Mengambil data artikel ....", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+//            Snackbar.make(getView(), "Mengambil data artikel ....", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             adapter.startListening();
         } else {
             Snackbar.make(getView(), "Tidak Ada Koneksi Internet", Snackbar.LENGTH_LONG).setAction("Action", null).show();

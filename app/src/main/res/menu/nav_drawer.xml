@@ -3,15 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/lonceng"
+        android:id="@+id/swMenuItem"
         android:icon="@drawable/asset_lonceng"
-        android:title="@string/app_name"
         app:showAsAction="always"/>
-
-
-<!--    <item-->
-<!--        android:id="@+id/action_settings"-->
-<!--        android:orderInCategory="100"-->
-<!--        android:title="@string/action_settings"-->
-<!--        app:showAsAction="never" />-->
 </menu>

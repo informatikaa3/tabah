@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class JemputFragmentDetail extends Fragment {
+public class JemputFragmentDetail extends BaseFragment {
+    public static final String TAG = JemputFragmentDetail.class.getSimpleName();
     private TextView nam,des,har,ala,kon;
-
     private String nama;
     private String deskrip;
     private String harga;
@@ -27,29 +27,51 @@ public class JemputFragmentDetail extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sell_jemput_detail, container, false);
 
+        findViews(view);
+        initViews(view);
+        initListeners(view);
+
+        return view;
+    }
+
+    @Override
+    public void findViews(View view) {
         nam = view.findViewById(R.id.tv_nama_j_detail);
         des = view.findViewById(R.id.tv_deskripsi_j_detail);
         har = view.findViewById(R.id.tv_harga_j_detial);
         ala = view.findViewById(R.id.tv_alamat_j_detail);
         kon = view.findViewById(R.id.tv_kontak_j_detail);
 
-        nama = getActivity().getIntent().getExtras().getString("Nama");
-        deskrip = getActivity().getIntent().getExtras().getString("Deskripsi");
-        harga = getActivity().getIntent().getExtras().getString("harga_perkg");
-        alama = getActivity().getIntent().getExtras().getString("Alamat");
-        kont = getActivity().getIntent().getExtras().getString("Kontak");
+    }
+
+    @Override
+    public void initViews(View view) {
+        Bundle arg = getArguments();
+        if (arg != null) {
+            nama = arg.getString("Nama");
+            deskrip = arg.getString("Deskripsi");
+            harga = arg.getString("harga_Perkg");
+            alama = arg.getString("Alamat");
+            kont = arg.getString("Kontak");
+        }
 
         nam.setText(nama);
         des.setText(deskrip);
         har.setText(harga);
         ala.setText(alama);
         kon.setText(kont);
-
-        return view;
     }
+
+    @Override
+    public void initListeners(View view) {
+
+    }
+
+
 }

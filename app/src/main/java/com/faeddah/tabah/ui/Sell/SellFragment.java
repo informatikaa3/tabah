@@ -44,11 +44,6 @@ public class SellFragment extends BaseFragment {
 
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void findViews(View view) {
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.viewpager);
@@ -87,33 +82,5 @@ public class SellFragment extends BaseFragment {
 //        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public void onPause() {
-        Toast.makeText(getContext(), "onpause : sell", Toast.LENGTH_SHORT).show();
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        Toast.makeText(getContext(), "onstop : sell", Toast.LENGTH_SHORT).show();
-        super.onStop();
-    }
 
 }

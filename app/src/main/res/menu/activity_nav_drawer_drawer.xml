@@ -13,7 +13,8 @@
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_person"
-            android:title="@string/menu_profile" />
+            android:title="@string/menu_profile"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_sell"
             android:icon="@drawable/ic_attach_money_"
@@ -37,6 +38,10 @@
         <item
             android:id="@+id/nav_about"
             android:title="@string/txt_about" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout"
+            android:visible="false"/>
     </group>
 
 </menu>
