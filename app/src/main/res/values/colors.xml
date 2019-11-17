@@ -8,4 +8,9 @@
     <color name="startblue">#09c6df</color>
     <color name="endblue">#0bcce6</color>
     <color name="badge_color">#D81B60</color>
+
+    <color name="clay_primary">#438585</color>
+    <color name="green_primary">#1E8D3F</color>
+    <color name="light_green_primary">#7ab6b0</color>
+
 </resources>

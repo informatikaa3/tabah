@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/tv_nama_j_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textColor="@color/clay_primary"
+        android:text="PENGEPUL 1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="visible"
+        android:background="@android:color/black"/>
+    <TextView
+        android:id="@+id/tv_deskripsi_j_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Deskripsi"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="HARGA BELI SAMPAH"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/tv_harga_j_detial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Harga beli"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="ALAMAT"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tv_alamat_j_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Alamat pengepul"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="KONTAK"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/tv_kontak_j_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="nomor"
+        android:textSize="20dp"/>
+
+</LinearLayout>

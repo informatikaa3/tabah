@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginHorizontal="10dp">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,11 +21,11 @@
             android:text="Keterangan Penjemputan"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/clay_primary"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="3dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:visibility="visible"
             android:background="@android:color/black"/>
     </LinearLayout>
@@ -115,13 +120,12 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"/>
             <Button
-
                 android:id="@+id/btn_antar_save"
                 android:layout_width="80dp"
                 android:layout_height="40dp"
                 android:text="SAVE"
                 android:textColor="@android:color/white"
-                android:background="@android:color/holo_blue_light"
+                android:background="@color/clay_primary"
                 android:layout_marginRight="10dp"/>
             <Button
                 android:id="@+id/btn_antar_cancel"
@@ -131,5 +135,6 @@
                 android:textColor="@android:color/white"
                 android:background="@android:color/black"/>
         </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>

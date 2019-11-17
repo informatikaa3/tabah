@@ -1,14 +1,12 @@
 package com.faeddah.tabah.adapter;
 
 import com.faeddah.tabah.ui.Sell.AntarFragment;
-import com.faeddah.tabah.ui.Sell.JemputFragment;
+import com.faeddah.tabah.ui.Sell.JemputFragmentFeed;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class AdapterSell extends FragmentPagerAdapter {
 
@@ -33,7 +31,7 @@ public class AdapterSell extends FragmentPagerAdapter {
             case 0:
                 return new AntarFragment();
             case 1:
-                return new JemputFragment();
+                return new JemputFragmentFeed();
             default:
                 return null;
         }

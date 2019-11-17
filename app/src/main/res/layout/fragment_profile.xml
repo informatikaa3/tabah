@@ -143,10 +143,6 @@
                 android:layout_height="40sp"
                 android:src="@drawable/ic_arrow_right"
                 />
-
-
-
-
         </LinearLayout>
 
         <LinearLayout
