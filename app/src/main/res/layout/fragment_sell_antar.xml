@@ -24,7 +24,7 @@
             android:textColor="@color/clay_primary"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="3dp"
+            android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:visibility="visible"
             android:background="@android:color/black"/>

@@ -12,5 +12,6 @@
     <color name="clay_primary">#438585</color>
     <color name="green_primary">#1E8D3F</color>
     <color name="light_green_primary">#7ab6b0</color>
+    <color name="clay_grad_primary">#74B1B1</color>
 
 </resources>
