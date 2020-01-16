@@ -115,7 +115,6 @@ public class AuthLogin extends BaseFragment {
                     edtPassword.setError("harus di isi");
                     return;
                 }
-                edtPassword.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 masuk(email,pw);
             }
         });
@@ -174,23 +173,27 @@ public class AuthLogin extends BaseFragment {
 
     private void masuk(final String email, String password){
         progressBar.setVisibility(1);
-        edtEmail.setText("");
-        edtPassword.setText("");
+        edtEmail.getText().clear();
+        edtPassword.getText().clear();
+        edtEmail.onEditorAction(EditorInfo.IME_ACTION_DONE);
+        edtPassword.onEditorAction(EditorInfo.IME_ACTION_DONE);
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
-                            // kalo gagal
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Log.e(TAG, "signInWithEmail:failed", task.getException());
                             showSnackBarMessage("login gagal ....");
                             progressBar.setVisibility(8);
                         } else{
                             // kalo berhasil
+                            Log.d(TAG, "signInWithEmail:Succes:");
                             progressBar.setVisibility(8);
                             Intent intent = new Intent(getActivity(), Home.class);
                             startActivity(intent);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             getActivity().finish();
                             user = FirebaseAuth.getInstance().getCurrentUser();
                             Toast.makeText(getContext(), "Selamat datang " + user.getDisplayName() ,Toast.LENGTH_LONG).show();

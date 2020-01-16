@@ -1,12 +1,21 @@
 package com.faeddah.tabah.ui.Profile;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,6 +37,7 @@ public class ProfileFragment extends BaseFragment {
     private FirebaseUser user;
     private TextView tvProfilnama, tvprofilsaldo;
     private ImageView imgProfil;
+    private ImageButton btnTopup;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,6 +66,7 @@ public class ProfileFragment extends BaseFragment {
         tvProfilnama = view.findViewById(R.id.tv_profilnama);
         tvprofilsaldo = view.findViewById(R.id.tv_saldo);
         imgProfil = view.findViewById(R.id.img_profil);
+        btnTopup = view.findViewById(R.id.btn_topup);
     }
 
     @Override
@@ -80,13 +91,41 @@ public class ProfileFragment extends BaseFragment {
                 }
             }
         };
-
-
-
     }
 
     @Override
     public void initListeners(View view) {
+        btnTopup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                topupDialog(getContext());
+            }
+        });
 
+    }
+
+
+    public void topupDialog(Context ctx){
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        AlertDialog dialog = new AlertDialog.Builder(ctx)
+                .setTitle("Topup Saldo")
+                .setMessage("Masukan Kode Token")
+                .setView(inflater.inflate(R.layout.fragment_profile_topup,null))
+                .setPositiveButton("Proses", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO : show progress bar,   validasi token, rubah saldo user terkait, error handling,
+                        Toast.makeText(getContext(), "Proses Top UP....", Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .setNegativeButton("Keluar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        dialog.show();
     }
 }

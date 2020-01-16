@@ -25,6 +25,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
@@ -36,7 +39,7 @@ public class AuthRegister extends BaseFragment {
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener stateListener;
     private FirebaseUser user;
-    private UserProfileChangeRequest updateProfil;
+    private UserProfileChangeRequest userProfile;
     private TextView tvLogin;
     private Button btnRegister;
     private TextInputEditText edtEmail, edtPassword, edtPasswordSip, edtNama;
@@ -127,39 +130,43 @@ public class AuthRegister extends BaseFragment {
 
 
                 if (TextUtils.isEmpty(nama)){
-                    edtNama.setError("harus di isi");
+                    edtNama.setError(getString(R.string.hint_harus_diisi));
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)){
-                    edtEmail.setError("harus di isi");
+                    edtEmail.setError(getString(R.string.hint_harus_diisi));
                     return;
                 } else if (!email.trim().matches(regexEmail)){
-                    edtEmail.setError("email tidak valid");
+                    edtEmail.setError(getString(R.string.hint_email_tidak_valid));
                     return;
                 }
 
                 if (TextUtils.isEmpty(pw)){
-                    edtPassword.setError("harus di isi");
+                    edtPassword.setError(getString(R.string.hint_harus_diisi));
                     return;
                 }
 
                 if (TextUtils.isEmpty(pwsip)){
-                    edtPasswordSip.setError("harus di isi");
+                    edtPasswordSip.setError(getString(R.string.hint_harus_diisi));
                     return;
                 } else if (!pw.equals(pwsip)) {
-                    edtPasswordSip.setError("password gak sama");
+                    edtPasswordSip.setError(getString(R.string.hint_password_beda));
                     return;
                 }
-
+                
                 edtPasswordSip.onEditorAction(EditorInfo.IME_ACTION_DONE);
-                regis(email,pwsip);
+                edtNama.setCursorVisible(false);
+                edtEmail.setCursorVisible(false);
+                edtPassword.setCursorVisible(false);
+                edtPasswordSip.setCursorVisible(false);
+                regis(email,pwsip,nama);
             }
         });
 
     }
 
-    private void regis (final String email, String pw){
+    private void regis (final String email, String pw, final String nama){
         progressBar.setVisibility(1);
         auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -167,21 +174,30 @@ public class AuthRegister extends BaseFragment {
                 Log.e("sep" ,String.valueOf(task.isSuccessful()));
 
                 if (!task.isSuccessful()){
-                    task.getException().printStackTrace();
-                    showSnackBarMessage("Gagal Daftar Bos");
+                    updateUI(0);
+                    try {
+                        throw task.getException();
+                    } catch(FirebaseAuthWeakPasswordException e) {
+                        edtPassword.setError(getString(R.string.hint_password_lemah));
+                        edtPassword.requestFocus();
+                    } catch(FirebaseAuthInvalidCredentialsException e) {
+                        edtEmail.setError(getString(R.string.hint_email_tidak_valid));
+                        edtEmail.requestFocus();
+                    } catch(FirebaseAuthUserCollisionException e) {
+                        showSnackBarMessage(getString(R.string.hint_email_terdaftar));
+                    } catch(Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
                 } else {
-                    progressBar.setVisibility(8);
-                    showSnackBarMessage(email+ " Berhasil Didaftarkan");
                     user = FirebaseAuth.getInstance().getCurrentUser();
-                    updateProfil = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(String.valueOf(edtNama.getText()))
+                    userProfile = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(nama)
                             .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/defaultUser.png?alt=media&token=89135dc6-0a5d-418b-bd38-6e937b7ee79e"))
                             .build();
-                    user.updateProfile(updateProfil);
-                    edtNama.setText("");
-                    edtEmail.setText("");
-                    edtPassword.setText("");
-                    edtPasswordSip.setText("");
+                    user.updateProfile(userProfile);
+                    progressBar.setVisibility(8);
+                    showSnackBarMessage(email+ " Berhasil Didaftarkan");
+                    updateUI(1);
                 }
             }
         });
@@ -195,4 +211,25 @@ public class AuthRegister extends BaseFragment {
             Snackbar.make(getView(),message,Snackbar.LENGTH_SHORT).show();
         }
     }
+
+    private void updateUI(Integer state){
+        if (state == 1) {
+            edtNama.getText().clear();
+            edtEmail.getText().clear();
+            edtPassword.getText().clear();
+            edtPasswordSip.getText().clear();
+            edtNama.setCursorVisible(true);
+            edtEmail.setCursorVisible(true);
+            edtPassword.setCursorVisible(true);
+            edtPasswordSip.setCursorVisible(true);
+        } else {
+            edtNama.setCursorVisible(true);
+            edtEmail.setCursorVisible(true);
+            edtPassword.setCursorVisible(true);
+            edtPasswordSip.setCursorVisible(true);
+        }
+        
+    }
+
+
 }

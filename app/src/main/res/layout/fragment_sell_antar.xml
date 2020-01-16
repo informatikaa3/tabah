@@ -65,13 +65,17 @@
                 android:text="Kota"
                 android:textSize="20dp"
                 android:textColor="@android:color/black"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/padding_editText"
-                android:hint="pilih kota"
-                android:drawableRight="@drawable/ic_arrow_drop_down"
-                android:background="@drawable/asset_shape_editext"/>
+            <Spinner
+                android:id="@+id/drop_kota_sell_jemput"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+<!--            <EditText-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="@dimen/padding_editText"-->
+<!--                android:hint="pilih kota"-->
+<!--                android:drawableRight="@drawable/ic_arrow_drop_down"-->
+<!--                android:background="@drawable/asset_shape_editext"/>-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

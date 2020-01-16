@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:columnCount="2"
     tools:context=".Home"
-    android:id="@+id/ke_detail_sell">
+    android:id="@+id/ke_detail_shopping">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_sell"
+        android:id="@+id/rv_shopping"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_row="0"
+        android:layout_column="0"
         tools:listitem="@layout/fragment_shopping_feed" />
 
 </GridLayout>

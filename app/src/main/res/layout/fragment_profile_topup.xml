@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <TableLayout
+        android:id="@+id/tbl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_v1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/token1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="25sp"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:nextFocusRight="@id/token2"
+                    android:gravity="center"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_v2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/token2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="25sp"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:nextFocusRight="@id/token3"
+                    android:gravity="center"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_v3"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/token3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="25sp"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:nextFocusRight="@id/token4"
+                    android:gravity="center"
+                    android:inputType="textCapWords"
+                    android:imeOptions="actionNext"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_v4"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/token4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="25sp"
+                    android:maxLength="1"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:inputType="textCapWords"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>

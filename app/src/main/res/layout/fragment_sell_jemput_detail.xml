@@ -63,5 +63,13 @@
         android:layout_height="wrap_content"
         android:text="nomor"
         android:textSize="20dp"/>
+    <Button
+        android:id="@+id/btn_sell_detail_jemput"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/clay_primary"
+        android:textColor="@android:color/white"
+        android:text="Jemput"/>
 
 </LinearLayout>

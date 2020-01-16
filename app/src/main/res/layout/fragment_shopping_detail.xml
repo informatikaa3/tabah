@@ -9,26 +9,27 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar_sell"
-        android:layout_margin="8dp"
+        android:id="@+id/sv_shopping"
+        android:layout_margin="1dp"
         android:scrollbars="none">
 
         <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="8dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="8dp"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="50dp"
                 android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:id="@+id/img_sell_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="match_parent"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@color/design_default_color_primary"
@@ -36,38 +37,63 @@
 
             </androidx.cardview.widget.CardView>
 
+
             <TextView
                 android:id="@+id/tv_jdlsell_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_marginBottom="1dp"
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                tools:text="ini judul"/>/>
+                tools:text="ini judul"/>
 
             <TextView
-                android:id="@+id/tv_isisell_detail"
+                android:gravity="left"
+                android:id="@+id/tv_inisell_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:justificationMode="inter_word"
-                android:lineSpacingMultiplier="1"
-                android:textSize="18sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                tools:text="ini isi"/>
-
-            <TextView
-                android:gravity="right"
-                android:id="@+id/tv_isisell_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/holo_red_light"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                tools:text="ini harga"/>
+
+            <TextView
+                android:id="@+id/tv_inisell_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:justificationMode="inter_word"
+                android:lineSpacingMultiplier="1"
+                android:textSize="18sp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 tools:text="ini isi"/>
+
+
         </LinearLayout>
     </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/btn_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_shopping_cart" />
+        <Button
+            android:background="@android:color/holo_red_light"
+            android:layout_toRightOf="@+id/btn_buy"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/beli_sekarang" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

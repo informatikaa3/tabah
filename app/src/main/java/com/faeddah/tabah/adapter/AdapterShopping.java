@@ -1,5 +1,6 @@
 package com.faeddah.tabah.adapter;
 
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.R;
 import com.faeddah.tabah.model.Shopping;
+import com.faeddah.tabah.ui.Shopping.ShoppingDetail;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,18 +63,18 @@ public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterS
                 }
                 terakhirklik = SystemClock.elapsedRealtime();
 
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
 //                Bundle oper = new Bundle();
-//                oper.putString("judul_barang", judul_barang);
-//                oper.putString("deskripsi_barang", deskripsi_barang);
-//                oper.putString("harga_barang", harga_barang);
-//                oper.putString("img_sell", imgurl_sell);
+////                oper.putString("judul_barang", judul_barang);
+////                oper.putString("deskripsi_barang", deskripsi_barang);
+////                oper.putString("harga_barang", harga_barang);
+////                oper.putString("img_sell", imgurl_sell);
 //
-//                ShoppingDetail sellDetail = new ShoppingDetail();
-//
-//                //jeder
+                ShoppingDetail sellDetail = new ShoppingDetail();
+
+
 //                sellDetail.setArguments(oper);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.ke_detail_sell, sellDetail).addToBackStack(null).commit();
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.ke_detail_shopping, sellDetail).addToBackStack(null).commit();
             }
         });
 

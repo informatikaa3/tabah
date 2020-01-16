@@ -142,7 +142,7 @@ public class Home extends BaseActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     Intent intent = new Intent(Home.this,Home.class);
                     startActivity(intent);
-                    finish();
+//                    finish();
                     signOut();
                     return true;
                 }
@@ -224,6 +224,8 @@ public class Home extends BaseActivity {
 
     private void showLogin(){
         Intent intent = new Intent(this, Auth.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

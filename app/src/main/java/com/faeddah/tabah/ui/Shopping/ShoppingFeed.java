@@ -77,7 +77,7 @@ public class ShoppingFeed extends BaseFragment {
 
     @Override
     public void findViews(View view) {
-        rv = view.findViewById(R.id.rv_sell);
+        rv = view.findViewById(R.id.rv_shopping);
 
     }
 

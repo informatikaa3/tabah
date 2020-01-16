@@ -47,7 +47,30 @@
     <string name="txt_belum_punya_akun_register_disini"><u>Belum punya akun ? Register disini</u></string>
     <string name="txt_sudah_punya_akun_login_disini"><u>Sudah punya akun ? Login disini</u></string>
 
+
+    <string name="hint_harus_diisi">Harus diiisi</string>
+    <string name="hint_email_tidak_valid">Email tidak valid</string>
+    <string name="hint_email_terdaftar">Email sudah terdaftar</string>
+    <string name="hint_password_lemah">Password lemah</string>
+    <string name="hint_password_beda">Password tidak sama</string>
+    <string name="hint_password_salah">Password salah</string>
+
+    <string name="hint_"></string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="beli_sekarang">BELI SEKARANG</string>
+    <string name="detail_produk">Detail Produk</string>
+
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 
 </resources>
