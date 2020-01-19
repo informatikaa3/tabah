@@ -64,24 +64,24 @@ public class ShoppingDetail extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-//        Bundle arg = getArguments();
-//        if (!arg.isEmpty()){
-//            judul_barang = arg.getString("judul_barang");
-//            deskripsi_barang = arg.getString("deskripsi_barang");
-//            harga_barang = arg.getString("harga_barang");
-//            img_sell = arg.getString("img_sell");
-//        } else {
-//            Snackbar.make(
-//                    getActivity().findViewById(R.id.ke_detail_artikel), "Data Tidak Ada ...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-//            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-//        }
-//        tv_jdlsell.setText(judul_barang);
-//        tv_deskripsi.setText(deskripsi_barang);
-//        tv_price.setText(harga_barang);
-//        Glide.with(view)
-//                .load(img_sell)
-//                .onlyRetrieveFromCache(true)
-//                .into(imgview);
+        Bundle arg = getArguments();
+        if (!arg.isEmpty()){
+            judul_barang = arg.getString("judul_barang");
+            deskripsi_barang = arg.getString("deskripsi_barang");
+            harga_barang = arg.getString("harga_barang");
+            img_sell = arg.getString("img_sell");
+        } else {
+            Snackbar.make(
+                    getActivity().findViewById(R.id.ke_detail_artikel), "Data Tidak Ada ...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        }
+        tv_jdlsell.setText(judul_barang);
+        tv_deskripsi.setText(deskripsi_barang);
+        tv_price.setText("Rp "+harga_barang);
+        Glide.with(view)
+                .load(img_sell)
+                .onlyRetrieveFromCache(true)
+                .into(imgview);
     }
 
     @Override

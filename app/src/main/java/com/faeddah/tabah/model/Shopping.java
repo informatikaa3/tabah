@@ -3,14 +3,11 @@ package com.faeddah.tabah.model;
 import java.util.Date;
 
 public class Shopping {
-
-    //TODO: Harga barang masalah ...
     private String judul_barang;
     private String deskripsi_barang;
     private String key_sell;
     private String imgUrl;
-    private int idBarang, idUser, stok;
-//    private long harga_barang;
+    private int idBarang, idUser, stok, harga_barang;
     private Date tanggal_input;
 
     public Shopping() {
@@ -73,13 +70,13 @@ public class Shopping {
         this.stok = stok;
     }
 
-//    public long getHarga_barang() {
-//        return harga_barang;
-//    }
-//
-//    public void setHarga_barang(long harga_barang) {
-//        this.harga_barang = harga_barang;
-//    }
+    public int getHarga_barang() {
+        return harga_barang;
+    }
+
+    public void setHarga_barang(int harga_barang) {
+        this.harga_barang = harga_barang;
+    }
 
     public Date getTanggal_input() {
         return tanggal_input;
@@ -89,3 +86,5 @@ public class Shopping {
         this.tanggal_input = tanggal_input;
     }
 }
+
+

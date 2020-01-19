@@ -1,19 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:columnCount="2"
     tools:context=".Home"
-    android:id="@+id/ke_detail_shopping">
+    android:id="@+id/feed_shopping">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_shopping"
+    <GridLayout
+        android:columnCount="2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_row="0"
-        android:layout_column="0"
-        tools:listitem="@layout/fragment_shopping_feed" />
+        android:padding="10dp"
+        android:id="@+id/ke_detail_shopping">
 
-</GridLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_shopping"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_row="0"
+            android:layout_column="0"
+            tools:listitem="@layout/fragment_shopping_feed" />
+
+    </GridLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="179dp"
+        android:layout_marginEnd="24dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:elevation="16dp"
+        android:visibility="invisible"
+        app:backgroundTint="#ffffff"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_shopping_cart"
+        android:translationZ="12dp" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="119dp"
+        android:layout_marginEnd="24dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:elevation="16dp"
+        android:visibility="invisible"
+        android:backgroundTint="#ffffff"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/ic_add_black"
+        android:translationZ="12dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_expand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="52dp"
+        android:layout_marginEnd="24dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:elevation="16dp"
+        android:visibility="visible"
+        android:backgroundTint="#ffffff"
+        android:background="?android:attr/selectableItemBackground"
+        android:src="@drawable/assset_arrow_up_blk"
+        android:translationZ="12dp" />
+
+
+
+
+
+</RelativeLayout>
+

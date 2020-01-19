@@ -36,7 +36,7 @@
             android:textColorHint="@android:color/white">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_emai"
+                android:id="@+id/edt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -45,14 +45,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btn_nextEmail"
+            android:id="@+id/btn_reset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lo_email"
             android:layout_marginTop="20dp"
             android:backgroundTint="@android:color/white"
             android:textColor="@color/colorPrimary"
-            android:text="@string/txt_next"
+            android:text="reset"
             android:padding="16dp"/>
 
     </RelativeLayout>
