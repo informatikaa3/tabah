@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,22 +21,15 @@
             android:orientation="vertical"
             android:layout_margin="8dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="50dp"
-                android:layout_marginBottom="10dp">
-
                 <ImageView
                     android:id="@+id/img_sell_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="250dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@color/design_default_color_primary"
-                    android:contentDescription="TODO"/>
-
-            </androidx.cardview.widget.CardView>
+                    android:contentDescription="TODO"
+                    android:layout_marginBottom="10dp"/>
 
 
             <TextView
