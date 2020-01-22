@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.navigation.NavController;
 
 import com.bumptech.glide.Glide;
 import com.faeddah.tabah.BaseFragment;
@@ -63,22 +65,24 @@ public class ArtikelDetail extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-        Bundle arg = getArguments();
-        if (!arg.isEmpty()){
-            judul = arg.getString("judul");
-            artikel = arg.getString("artikel");
-            imgurl = arg.getString("imgurl");
+        Toast.makeText(getContext(), getArguments().getString("judul"), Toast.LENGTH_SHORT).show();
+        Bundle bundle = getArguments();
+
+        if (bundle != null){
+            judul = bundle.getString("judul");
+            artikel = bundle.getString("artikel");
+            imgurl = bundle.getString("imgurl");
+            tv_jdl.setText(judul);
+            tv_artikel.setText(artikel);
+            Glide.with(view)
+                    .load(imgurl)
+                    .onlyRetrieveFromCache(true)
+                    .into(imgview);
+
         } else {
-            Snackbar.make(
-            getActivity().findViewById(R.id.ke_detail_artikel), "Data Tidak Ada ...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
-            getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+            Snackbar.make(getView(), "Data Tidak Ada ...", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
         }
-        tv_jdl.setText(judul);
-        tv_artikel.setText(artikel);
-        Glide.with(view)
-                .load(imgurl)
-                .onlyRetrieveFromCache(true)
-                .into(imgview);
+
     }
 
     @Override

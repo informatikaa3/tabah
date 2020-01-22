@@ -16,7 +16,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -26,26 +30,32 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.ui.CountDrawable;
+import com.faeddah.tabah.ui.Home.ArtikelDetail;
+import com.faeddah.tabah.ui.Home.ArtikelFeed;
+import com.faeddah.tabah.ui.Profile.EditProfileFragment;
+import com.faeddah.tabah.ui.Profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 //import android.os.Bundle;
 
 public class Home extends BaseActivity {
 
     public static final String TAG = Home.class.getSimpleName();
-    private AppBarConfiguration mAppBarConfiguration;
+    private AppBarConfiguration appBarConfiguration;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener stateListener;
     private FirebaseUser user;
-    private DrawerLayout drawer;
+    private DrawerLayout drawerLayout;
     private LayerDrawable icon;
     private NavigationView navigationView;
+    private NavController navController;
     private MenuInflater menuInflater;
     private MenuItem itemLogout,itemProfile, swMenuItem;
     private Menu menu;
-    private NavController navController;
     private TextView tvProfileNamaNav, tvSaldoNav;
     private ImageView imgProfilNav;
     private long terakhirklik;
@@ -55,10 +65,8 @@ public class Home extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        initNavigation();
+        initInstanceFirebase();
         findViews();
         initViews();
         initListeners();
@@ -85,12 +93,20 @@ public class Home extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+//        Toast.makeText(this, String.valueOf(getSupportFragmentManager().getBackStackEntryCount()), Toast.LENGTH_SHORT).show();
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+
+    @Override
     public void findViews() {
 
-        drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        // di navslide
         itemLogout = navigationView.getMenu().findItem(R.id.nav_logout);
         itemProfile = navigationView.getMenu().findItem(R.id.nav_profile);
         tvProfileNamaNav = navigationView.getHeaderView(0).findViewById(R.id.tv_profilnama);
@@ -100,18 +116,10 @@ public class Home extends BaseActivity {
 
     @Override
     public void initViews() {
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_sell,
-                R.id.nav_shopping, R.id.nav_settings, R.id.nav_helpcenter)
-                .setDrawerLayout(drawer)
-                .build();
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-        auth = FirebaseAuth.getInstance();
+
         stateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // status user login
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -125,6 +133,7 @@ public class Home extends BaseActivity {
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .apply(new RequestOptions().centerCrop())
                             .into(imgProfilNav);
+//                    swMenuItem.setChecked(false);
 
                 } else {
                     // status user logout
@@ -140,10 +149,9 @@ public class Home extends BaseActivity {
         itemLogout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    Intent intent = new Intent(Home.this,Home.class);
-                    startActivity(intent);
-//                    finish();
-                    signOut();
+                    auth.signOut();
+                    finish();
+                    startActivity(getIntent());
                     return true;
                 }
             });
@@ -151,9 +159,33 @@ public class Home extends BaseActivity {
     }
 
 
+
+
+    private void initNavigation(){
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        navigationView = findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.drawer_layout_home);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_home);
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_profile, R.id.nav_sell,
+                R.id.nav_shopping, R.id.nav_settings, R.id.nav_helpcenter)
+                .setDrawerLayout(drawerLayout)
+                .build();
+        NavigationUI.setupWithNavController(navigationView,navController);
+    }
+
+    private void initInstanceFirebase(){
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         this.menu = menu;
         menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.nav_drawer, menu);
@@ -162,8 +194,8 @@ public class Home extends BaseActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_home);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 
@@ -184,6 +216,8 @@ public class Home extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_home);
+
         if (SystemClock.elapsedRealtime() - terakhirklik < 1000) {
             return super.onOptionsItemSelected(item);
         }
@@ -197,7 +231,8 @@ public class Home extends BaseActivity {
                     return true;
 
                 default:
-                    return super.onOptionsItemSelected(item);
+                    return NavigationUI.onNavDestinationSelected(item, navController)
+                            || super.onOptionsItemSelected(item);
             }
         }
 
@@ -224,17 +259,8 @@ public class Home extends BaseActivity {
 
     private void showLogin(){
         Intent intent = new Intent(this, Auth.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-    private void signOut(){
-        Toast.makeText(this, "Logout berhasil ...", Toast.LENGTH_LONG).show();
-        auth.signOut();
-    }
-
-
 
 
 

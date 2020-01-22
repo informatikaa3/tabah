@@ -1,5 +1,8 @@
 package com.faeddah.tabah.ui.Shopping;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faeddah.tabah.Auth;
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
 import com.faeddah.tabah.adapter.AdapterShopping;
@@ -21,6 +27,8 @@ import com.faeddah.tabah.model.Shopping;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -29,6 +37,7 @@ public class ShoppingFeed extends BaseFragment {
     public static final String TAG = "root_shopping";
     private RecyclerView rv;
     private FirebaseFirestore db;
+    private FirebaseUser user;
     private CollectionReference reference;
     private AdapterShopping adapter;
     private Query query;
@@ -50,7 +59,7 @@ public class ShoppingFeed extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shopping, container, false);
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         showRecyclerView();
         findViews(view);
@@ -103,9 +112,6 @@ public class ShoppingFeed extends BaseFragment {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new GridLayoutManager(getContext(),2));
         rv.setAdapter(adapter);
-
-
-
     }
 
     @Override
@@ -135,32 +141,59 @@ public class ShoppingFeed extends BaseFragment {
         fab_additem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : view add item, backend update data firebase
-                Toast.makeText(getContext(), "ke tambah item", Toast.LENGTH_SHORT).show();
+                if (user == null){
+                    showAlertDialog();
+                } else {
+                    Navigation.findNavController(getView()).navigate(R.id.nav_shopping_add_produk);
+                }
             }
         });
+//        fab_additem.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_shopping_add_produk));
 
         fab_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : view keranjang, ambil data di firebase
-                Toast.makeText(getContext(), "ke keranjang", Toast.LENGTH_SHORT).show();
+                if (user == null){
+                    showAlertDialog();
+                } else {
+                    Navigation.findNavController(getView()).navigate(R.id.nav_shopping_keranjang);
+                }
             }
         });
+//        fab_cart.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_shopping_keranjang));
 
     }
 
 
     private void showRecyclerView() {
-        //ambil data di firebase
         db = FirebaseFirestore.getInstance();
         reference = db.collection("item_jualbarang");
-        query = reference.orderBy("tanggal_input", Query.Direction.ASCENDING);
+        query = reference.orderBy("tanggalPosting", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<Shopping> options = new FirestoreRecyclerOptions
                 .Builder<Shopping>()
                 .setQuery(query, Shopping.class)
                 .build();
-        // set adapter recycler view
         adapter = new AdapterShopping(options);
+    }
+
+    private void showAlertDialog(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle("Belum login").setMessage("Silahkan login terlebih dahulu ...")
+                .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                        Intent auth = new Intent(getActivity(), Auth.class);
+                        startActivity(auth);
+                    }
+                })
+                .setNegativeButton("Keluar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        dialog.show();
     }
 }

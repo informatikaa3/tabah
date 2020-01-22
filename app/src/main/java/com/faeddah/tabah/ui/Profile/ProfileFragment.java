@@ -1,26 +1,25 @@
 package com.faeddah.tabah.ui.Profile;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -29,7 +28,6 @@ import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.journeyapps.barcodescanner.CaptureActivity;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -38,9 +36,8 @@ public class ProfileFragment extends BaseFragment {
     private FirebaseAuth.AuthStateListener stateListener;
     private FirebaseUser user;
     private TextView tvProfilnama, tvprofilsaldo;
-    private ImageView imgProfil,changetypeuser;
+    private ImageView imgProfil;
     private ImageButton btnTopup;
-    private LinearLayout linearLayout;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,10 +63,8 @@ public class ProfileFragment extends BaseFragment {
 
     @Override
     public void findViews(View view) {
-        linearLayout = view.findViewById(R.id.frame_profile_user);
         tvProfilnama = view.findViewById(R.id.tv_profilnama);
         tvprofilsaldo = view.findViewById(R.id.tv_saldo);
-        changetypeuser = view.findViewById(R.id.change_type_user);
         imgProfil = view.findViewById(R.id.img_profil);
         btnTopup = view.findViewById(R.id.btn_topup);
     }
@@ -99,22 +94,11 @@ public class ProfileFragment extends BaseFragment {
     }
 
     @Override
-    public void initListeners(final View view) {
-        linearLayout.setVisibility(view.VISIBLE);
+    public void initListeners(View view) {
         btnTopup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 topupDialog(getContext());
-            }
-        });
-        changetypeuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                linearLayout.setVisibility(view.GONE);
-                Scanner scanner = new Scanner();
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frame_profile, scanner).commit();
             }
         });
 
@@ -144,5 +128,4 @@ public class ProfileFragment extends BaseFragment {
                 .create();
         dialog.show();
     }
-
 }

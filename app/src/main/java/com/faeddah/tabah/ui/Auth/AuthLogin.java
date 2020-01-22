@@ -35,6 +35,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
@@ -164,7 +167,7 @@ public class AuthLogin extends BaseFragment {
      private void pindahFragment(Fragment fragment, String tag){
          FragmentTransaction ft = getFragmentManager().beginTransaction();
          ft.add(fragment, tag);
-         ft.replace(R.id.fragmentFrame,fragment,tag);
+//         ft.replace(R.id.fragmentFrame,fragment,tag);
 
 //        tambah ke stack (back button)
          ft.addToBackStack(tag);
@@ -181,22 +184,29 @@ public class AuthLogin extends BaseFragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
                         if (!task.isSuccessful()) {
                             Log.e(TAG, "signInWithEmail:failed", task.getException());
                             showSnackBarMessage("login gagal ....");
                             progressBar.setVisibility(8);
                         } else{
                             // kalo berhasil
-                            Log.d(TAG, "signInWithEmail:Succes:");
-                            progressBar.setVisibility(8);
-                            Intent intent = new Intent(getActivity(), Home.class);
-                            startActivity(intent);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            getActivity().finish();
-                            user = FirebaseAuth.getInstance().getCurrentUser();
-                            Toast.makeText(getContext(), "Selamat datang " + user.getDisplayName() ,Toast.LENGTH_LONG).show();
+
+                            auth = FirebaseAuth.getInstance();
+                            user = auth.getCurrentUser();
+
+                            if (user != null){
+                                Log.d(TAG, "signInWithEmail:Succes:");
+                                progressBar.setVisibility(8);
+                                Intent intent = new Intent(getActivity(), Home.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                                Toast.makeText(getContext(), "Selamat datang " + user.getDisplayName() ,Toast.LENGTH_LONG).show();
+                            } else {
+                                showSnackBarMessage("Silahkan coba lagi ....");
+                            }
+
+
                         }
                         // ... rest code
                     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -18,8 +18,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="8dp">
+            android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/img_sell_detail"
@@ -31,12 +30,13 @@
                     android:contentDescription="TODO"
                     android:layout_marginBottom="10dp"/>
 
-
             <TextView
+
                 android:id="@+id/tv_jdlsell_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
+                android:layout_margin="8dp"
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:text="ini judul"/>
@@ -47,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:layout_margin="8dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1"
                 android:textSize="18sp"
@@ -59,35 +60,67 @@
                 android:id="@+id/tv_inisell_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1"
                 android:textSize="18sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 tools:text="ini isi"/>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/asset_shape">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    tools:src="@android:color/black"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/profile_image"
+                    android:layout_marginEnd="16dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/profile_image"
+                    tools:text="Tanggal Posting"
+                    android:textSize="14sp"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_centerVertical="true"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/profile_image"
+                    android:layout_toRightOf="@id/profile_image"
+                    android:textColor="@android:color/black"
+                    tools:text="Owner Name" />
+            </RelativeLayout>
+
 
         </LinearLayout>
+
     </ScrollView>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="bottom">
 
         <ImageButton
+            android:layout_alignParentBottom="true"
             android:id="@+id/btn_buy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_shopping_cart" />
+
         <Button
-            android:background="@android:color/holo_red_light"
-            android:layout_toRightOf="@+id/btn_buy"
+            android:layout_alignParentBottom="true"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/btn_buy"
+            android:background="@color/fui_linkColor"
             android:text="@string/beli_sekarang" />
-
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

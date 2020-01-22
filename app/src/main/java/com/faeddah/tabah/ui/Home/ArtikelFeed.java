@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.navigation.Navigation;
 
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
@@ -94,7 +96,6 @@ public class ArtikelFeed extends BaseFragment {
 
 
     private void showRecyclerView() {
-        //ambil data di firebase
         db = FirebaseFirestore.getInstance();
         reference = db.collection("artikel");
         query = reference.orderBy("terbit", Query.Direction.ASCENDING);
@@ -102,7 +103,6 @@ public class ArtikelFeed extends BaseFragment {
                 .Builder<Artikel>()
                 .setQuery(query, Artikel.class)
                 .build();
-        // set adapter recycler view
         adapter = new AdapterArtikel(options);
     }
 

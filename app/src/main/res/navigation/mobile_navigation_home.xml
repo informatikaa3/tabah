@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+<!--    Hierarcy View Home-->
+    <fragment
+        android:id="@+id/nav_home"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Home.ArtikelFeed"
+        tools:layout="@layout/fragment_artikel">
+        <action
+            android:id="@+id/action_ke_detail_artikel"
+            app:destination="@id/nav_home_artikel_detail"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_home_artikel_detail"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Home.ArtikelDetail"
+        tools:layout="@layout/fragment_artikel_detail">
+    </fragment>
+
+<!--    Hierarcy View Profil-->
+    <fragment
+        android:id="@+id/nav_profile"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_ke_editprofile"
+            app:destination="@id/nav_profile_editprofile"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/nav_profile_editprofile"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Profile.EditProfileFragment"
+        tools:layout="@layout/fragment_profile_editprofile" >
+    </fragment>
+
+
+<!--    Hierarcy View Shopping-->
+    <fragment
+        android:id="@+id/nav_shopping"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Shopping.ShoppingFeed"
+        tools:layout="@layout/fragment_shopping">
+        <action
+            android:id="@+id/action_ke_shopping_detail"
+            app:destination="@id/nav_shopping_detail"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+
+        <action
+            android:id="@+id/action_ke_add_produk"
+            app:destination="@id/nav_shopping_add_produk"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+
+        <action
+            android:id="@+id/action_ke_keranjang"
+            app:destination="@id/nav_shopping_keranjang"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_shopping_add_produk"
+        android:label="Jual Barang"
+        android:name="com.faeddah.tabah.ui.Shopping.ShoppingAdd"
+        tools:layout="@layout/fragment_shopping_add_produk">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_shopping_keranjang"
+        android:label="Keranjang"
+        android:name="com.faeddah.tabah.ui.Shopping.ShoppingKeranjang"
+        tools:layout="@layout/fragment_shopping_keranjang">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_shopping_detail"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Shopping.ShoppingDetail"
+        tools:layout="@layout/fragment_shopping_detail" >
+
+    </fragment>
+
+<!-- Hierarcy Jual Beli -->
+    <fragment
+        android:id="@+id/nav_sell"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Sell.SellFragment"
+        tools:layout="@layout/fragment_sell" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_helpcenter"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.HelpCenter.HelpCenterFragment"
+        tools:layout="@layout/fragment_helpcenter" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.About.AboutFragment"
+        tools:layout="@layout/fragment_about"/>
+</navigation>

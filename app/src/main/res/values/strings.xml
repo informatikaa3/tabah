@@ -61,6 +61,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="beli_sekarang">BELI SEKARANG</string>
     <string name="detail_produk">Detail Produk</string>
+    <string name="txt_hint_alamat">Alamat</string>
+    <string name="txt_hint_namabarang">Nama Barang</string>
+    <string name="txt_hint_harga">Harga</string>
+    <string name="txt_hint_stok">Stok</string>
+    <string name="txt_hint_jualbarang">Jual Barang</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

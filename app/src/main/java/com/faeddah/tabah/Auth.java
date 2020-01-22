@@ -20,11 +20,8 @@ public class Auth extends BaseActivity{
 
     }
 
-
     @Override
     public void onBackPressed() {
-        //TODO : Pattern stack (Lupa pasword) : AuthLogin -> AuthReset - > AuthResetVerif -> AuthResetNewPW  ||  (Register) : AuthLogin -> AuthRegister (Buggy)
-        // Menopengi BUG  :)
         if (getSupportFragmentManager().getBackStackEntryCount() == 1 ){
             finish();
         }

@@ -1,41 +1,56 @@
 package com.faeddah.tabah.model;
+import com.google.errorprone.annotations.FormatString;
+import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
 public class Shopping {
-    private String judul_barang;
-    private String deskripsi_barang;
-    private String key_sell;
-    private String imgUrl;
-    private int idBarang, idUser, stok, harga_barang;
-    private Date tanggal_input;
+    private String judulBarang, deskripsiBarang, uidOwner,uidBarang, imgUrl;
+    private String hargaBarang,stokBarang;
+    private Date tanggalPosting;
+    public Shopping() {}
 
-    public Shopping() {
+    public Shopping(String judulBarang, String deskripsiBarang, String uidOwner, String uidBarang, String imgUrl, String stokBarang, String hargaBarang, Date tanggalPosting) {
+        this.judulBarang = judulBarang;
+        this.deskripsiBarang = deskripsiBarang;
+        this.uidOwner = uidOwner;
+        this.uidBarang = uidBarang;
+        this.imgUrl = imgUrl;
+        this.stokBarang = stokBarang;
+        this.hargaBarang = hargaBarang;
+        this.tanggalPosting = tanggalPosting;
     }
 
-
-    public String getJudul_barang() {
-        return judul_barang;
+    public String getJudulBarang() {
+        return judulBarang;
     }
 
-    public void setJudul_barang(String judul_barang) {
-        this.judul_barang = judul_barang;
+    public void setJudulBarang(String judulBarang) {
+        this.judulBarang = judulBarang;
     }
 
-    public String getDeskripsi_barang() {
-        return deskripsi_barang;
+    public String getDeskripsiBarang() {
+        return deskripsiBarang;
     }
 
-    public void setDeskripsi_barang(String deskripsi_barang) {
-        this.deskripsi_barang = deskripsi_barang;
+    public void setDeskripsiBarang(String deskripsiBarang) {
+        this.deskripsiBarang = deskripsiBarang;
     }
 
-    public String getKey_sell() {
-        return key_sell;
+    public String getUidOwner() {
+        return uidOwner;
     }
 
-    public void setKey_sell(String key_sell) {
-        this.key_sell = key_sell;
+    public void setUidOwner(String uidOwner) {
+        this.uidOwner = uidOwner;
+    }
+
+    public String getUidBarang() {
+        return uidBarang;
+    }
+
+    public void setUidBarang(String uidBarang) {
+        this.uidBarang = uidBarang;
     }
 
     public String getImgUrl() {
@@ -46,44 +61,29 @@ public class Shopping {
         this.imgUrl = imgUrl;
     }
 
-    public int getIdBarang() {
-        return idBarang;
+//    public String getHargaBarang() {
+//        return hargaBarang;
+//    }
+//
+//    public void setHargaBarang(String hargaBarang) {
+//        this.hargaBarang = hargaBarang;
+//    }
+//
+//    public String getStokBarang() {
+//        return stokBarang;
+//    }
+//
+//    public void setStokBarang(String stokBarang) {
+//        this.stokBarang = stokBarang;
+//    }
+
+    @ServerTimestamp
+    public Date getTanggalPosting() {
+        return tanggalPosting;
     }
 
-    public void setIdBarang(int idBarang) {
-        this.idBarang = idBarang;
-    }
-
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
-    public int getStok() {
-        return stok;
-    }
-
-    public void setStok(int stok) {
-        this.stok = stok;
-    }
-
-    public int getHarga_barang() {
-        return harga_barang;
-    }
-
-    public void setHarga_barang(int harga_barang) {
-        this.harga_barang = harga_barang;
-    }
-
-    public Date getTanggal_input() {
-        return tanggal_input;
-    }
-
-    public void setTanggal_input(Date tanggal_input) {
-        this.tanggal_input = tanggal_input;
+    public void setTanggalPosting(Date tanggalPosting) {
+        this.tanggalPosting = tanggalPosting;
     }
 }
 

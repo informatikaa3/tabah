@@ -5,8 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".Home"
-    android:id="@+id/ke_detail_artikel">
+    tools:context=".Home">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_artikel"

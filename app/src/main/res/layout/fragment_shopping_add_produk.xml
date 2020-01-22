@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lo_nama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_hint_namabarang">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_namabarang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textShortMessage"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lo_harga"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lo_nama"
+        android:hint="@string/txt_hint_harga">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_harga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lo_stok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lo_harga"
+        android:hint="@string/txt_hint_stok">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_stok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberSigned"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_addfoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lo_stok"
+        android:text="Tambah Foto Barang"/>
+
+    <ImageView
+        android:id="@+id/preview_barang"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@id/btn_addfoto"
+        tools:src="@android:color/holo_red_light"
+        android:scaleType="fitCenter"/>
+
+
+    <Button
+        android:id="@+id/btn_addbarang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/txt_hint_jualbarang"/>
+
+
+
+</RelativeLayout>
