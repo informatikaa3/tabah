@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,7 +38,8 @@ public class ProfileFragment extends BaseFragment {
     private FirebaseUser user;
     private TextView tvProfilnama, tvprofilsaldo;
     private ImageView imgProfil;
-    private ImageButton btnTopup;
+    private ImageButton btnTopup,btnEditProfil,btnpengepul;
+    private String uid, nama, email, tlp, imgurl;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -67,30 +69,32 @@ public class ProfileFragment extends BaseFragment {
         tvprofilsaldo = view.findViewById(R.id.tv_saldo);
         imgProfil = view.findViewById(R.id.img_profil);
         btnTopup = view.findViewById(R.id.btn_topup);
+        btnEditProfil = view.findViewById(R.id.btn_editprofile);
+        btnpengepul = view.findViewById(R.id.btn_pengepul);
     }
 
     @Override
     public void initViews(View view) {
         auth = FirebaseAuth.getInstance();
-        stateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // status user login
-                    tvProfilnama.setText(user.getDisplayName());
-                    tvprofilsaldo.setText("Rp.10.000");
-                    Glide.with(getContext())
-                            .load(user.getPhotoUrl())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .apply(new RequestOptions().centerCrop())
-                            .into(imgProfil);
-                } else {
-                    // status User  logout
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
+        user = auth.getCurrentUser();
+        if (user != null) {
+            // status user login
+            uid = user.getUid();
+            nama = user.getDisplayName();
+            email = user.getEmail();
+            tlp = user.getPhoneNumber();
+            imgurl = String.valueOf(user.getPhotoUrl());
+
+            tvProfilnama.setText(nama);
+            tvprofilsaldo.setText("Rp.10.000");
+            Glide.with(getContext())
+                    .load(imgurl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(new RequestOptions().centerCrop())
+                    .into(imgProfil);
+
+        }
+
     }
 
     @Override
@@ -101,6 +105,25 @@ public class ProfileFragment extends BaseFragment {
                 topupDialog(getContext());
             }
         });
+        btnpengepul.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_scanner));
+        stateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Bundle data =  new Bundle();
+                    data.putString("uid", uid);
+                    data.putString("nama", nama);
+                    data.putString("imgurl", imgurl);
+                    data.putString("email", email);
+                    data.putString("telp", tlp);
+                    btnEditProfil.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_editprofile, data));
+                } else {
+                    // status User  logout
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
 
     }
 

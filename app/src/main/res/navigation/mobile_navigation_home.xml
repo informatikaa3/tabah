@@ -40,6 +40,13 @@
             app:exitAnim="@anim/exit_slide_down"
             app:popEnterAnim="@anim/pop_enter_slide_up"
             app:popExitAnim="@anim/pop_exit_slide_up"/>
+        <action
+            android:id="@+id/action_ke_pengepul"
+            app:destination="@id/nav_profile_scanner"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
     </fragment>
 
 
@@ -48,6 +55,13 @@
         android:label="@null"
         android:name="com.faeddah.tabah.ui.Profile.EditProfileFragment"
         tools:layout="@layout/fragment_profile_editprofile" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile_scanner"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Profile.Scanner"
+        tools:layout="@layout/fragment_profile_scanner">
     </fragment>
 
 

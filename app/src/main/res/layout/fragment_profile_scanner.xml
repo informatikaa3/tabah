@@ -3,16 +3,162 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btn_scanner"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/ll_top_scanner"
+        android:gravity="center"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="SCANNER"/>
-    <TextView
-        android:layout_below="@+id/btn_scanner"
-        android:id="@+id/result_scanner"
-        android:layout_width="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/btn_scanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SCANNER"/>
+        <TextView
+            android:layout_below="@+id/btn_scanner"
+            android:id="@+id/result_scanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR RESULT"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/ll_top_scanner"
+        android:id="@+id/ll_mid_profile"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="ANJING PLS AING JANGAR"/>
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keterangan Penjemputan"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/clay_primary"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:visibility="visible"
+            android:background="@android:color/black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/ll_mid_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="10dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="ID pengguna"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_scanner_uid_user"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Jenis disini"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Jenis Sampah"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_scanner_jenis"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Jenis disini"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Kota"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_scanner_kota"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="kota disini"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Pengepul"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_scanner_pengepul"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="pengepul disini"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Keterangan"
+                android:textSize="20dp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/tv_scanner_keterangan"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="jenis"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btn_scanner_save"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:text="SAVE"
+                android:textColor="@android:color/white"
+                android:background="@color/clay_primary"
+                android:layout_marginRight="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

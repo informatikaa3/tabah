@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +8,8 @@
     tools:content="com.faedah.tabah.ui.Profile.ProfileFragment"
     android:background="@color/graylight"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:id="@+id/root_layout_profile">
 
     <LinearLayout
         android:id="@+id/ll_top"
@@ -23,6 +25,9 @@
             android:layout_height="95dp"
             android:layout_marginTop="8dp"
             tools:src="@android:color/darker_gray"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_profilnama"
             android:layout_width="wrap_content"
@@ -32,6 +37,13 @@
             android:textSize="18sp"
             android:textAlignment="center"
             tools:text="Nama Profil"/>
+        <ImageButton
+            android:id="@+id/btn_pengepul"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/asset_round_button"
+            android:src="@drawable/asset_edit"/>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -40,22 +52,22 @@
             android:padding="8dp">
 
             <ImageButton
-                android:id="@+id/img_saldo"
+                android:id="@+id/btn_editprofile"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/asset_round_button"
-                android:src="@drawable/ic_cycle"/>
+                android:src="@drawable/asset_edit"/>
             <TextView
                 android:id="@+id/tv_saldo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/img_saldo"
+                android:layout_toRightOf="@+id/btn_editprofile"
                 android:textSize="23sp"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                tools:text="Rp.999999999"/>
+                tools:text="Rp.999999"/>
 
             <ImageButton
                 android:id="@+id/btn_topup"
