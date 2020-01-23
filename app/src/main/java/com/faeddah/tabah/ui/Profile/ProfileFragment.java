@@ -94,7 +94,6 @@ public class ProfileFragment extends BaseFragment {
                     .into(imgProfil);
 
         }
-
     }
 
     @Override
@@ -106,6 +105,7 @@ public class ProfileFragment extends BaseFragment {
             }
         });
         btnpengepul.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_scanner));
+
         stateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -124,6 +124,7 @@ public class ProfileFragment extends BaseFragment {
                 }
             }
         };
+
 
     }
 

@@ -1,23 +1,23 @@
 package com.faeddah.tabah.model;
-import com.google.errorprone.annotations.FormatString;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
 public class Shopping {
     private String judulBarang, deskripsiBarang, uidOwner,uidBarang, imgUrl;
-    private String hargaBarang,stokBarang;
+    private long hargaBarang,stokBarang;
     private Date tanggalPosting;
     public Shopping() {}
 
-    public Shopping(String judulBarang, String deskripsiBarang, String uidOwner, String uidBarang, String imgUrl, String stokBarang, String hargaBarang, Date tanggalPosting) {
+
+    public Shopping(String judulBarang, String deskripsiBarang, String uidOwner, String uidBarang, String imgUrl, long hargaBarang, long stokBarang, Date tanggalPosting) {
         this.judulBarang = judulBarang;
         this.deskripsiBarang = deskripsiBarang;
         this.uidOwner = uidOwner;
         this.uidBarang = uidBarang;
         this.imgUrl = imgUrl;
-        this.stokBarang = stokBarang;
         this.hargaBarang = hargaBarang;
+        this.stokBarang = stokBarang;
         this.tanggalPosting = tanggalPosting;
     }
 
@@ -61,21 +61,21 @@ public class Shopping {
         this.imgUrl = imgUrl;
     }
 
-//    public String getHargaBarang() {
-//        return hargaBarang;
-//    }
-//
-//    public void setHargaBarang(String hargaBarang) {
-//        this.hargaBarang = hargaBarang;
-//    }
-//
-//    public String getStokBarang() {
-//        return stokBarang;
-//    }
-//
-//    public void setStokBarang(String stokBarang) {
-//        this.stokBarang = stokBarang;
-//    }
+    public long getHargaBarang() {
+        return hargaBarang;
+    }
+
+    public void setHargaBarang(long hargaBarang) {
+        this.hargaBarang = hargaBarang;
+    }
+
+    public long getStokBarang() {
+        return stokBarang;
+    }
+
+    public void setStokBarang(long stokBarang) {
+        this.stokBarang = stokBarang;
+    }
 
     @ServerTimestamp
     public Date getTanggalPosting() {

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 
 import com.faeddah.tabah.ui.Auth.AuthLogin;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Auth extends BaseActivity{
 
@@ -41,6 +43,7 @@ public class Auth extends BaseActivity{
 
     @Override
     public void initListeners() {
+
 
     }
 

@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:textSize="30sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 tools:text="ini judul"/>
@@ -46,8 +46,8 @@
                 android:id="@+id/tv_inisell_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_margin="8dp"
+                android:layout_marginBottom="5dp"
+                android:layout_margin="3dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1"
                 android:textSize="18sp"
@@ -60,7 +60,7 @@
                 android:id="@+id/tv_inisell_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:justificationMode="inter_word"
                 android:lineSpacingMultiplier="1"
                 android:textSize="18sp"
@@ -70,24 +70,25 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/asset_shape">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    tools:src="@android:color/black"
+                    tools:src="@android:color/holo_red_light"
                     android:layout_centerVertical="true"
-                    android:id="@+id/profile_image"
+                    android:id="@+id/img_owner"
                     android:layout_marginEnd="16dp"/>
 
                 <TextView
+                    android:id="@+id/tv_tanggalposting"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/profile_image"
+                    android:layout_toEndOf="@id/img_owner"
                     tools:text="Tanggal Posting"
                     android:textSize="14sp"
                     android:layout_marginStart="5dp"
@@ -95,10 +96,11 @@
                     android:layout_centerVertical="true"/>
 
                 <TextView
+                    android:id="@+id/tv_ownername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/profile_image"
-                    android:layout_toRightOf="@id/profile_image"
+                    android:layout_toEndOf="@id/img_owner"
+                    android:layout_toRightOf="@id/img_owner"
                     android:textColor="@android:color/black"
                     tools:text="Owner Name" />
             </RelativeLayout>

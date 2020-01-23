@@ -66,6 +66,7 @@
     <string name="txt_hint_harga">Harga</string>
     <string name="txt_hint_stok">Stok</string>
     <string name="txt_hint_jualbarang">Jual Barang</string>
+    <string name="txt_hint_deskripsi">Deksripsi</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

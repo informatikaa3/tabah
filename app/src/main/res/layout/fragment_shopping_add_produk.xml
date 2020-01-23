@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -8,9 +9,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lo_nama"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/txt_hint_namabarang">
+        android:hint="@string/txt_hint_namabarang"
+        app:hintEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_namabarang"
@@ -23,13 +26,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lo_harga"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lo_nama"
         android:hint="@string/txt_hint_harga">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_harga"
+            android:id="@+id/edt_hargabarang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberSigned"
@@ -39,13 +43,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/lo_stok"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lo_harga"
         android:hint="@string/txt_hint_stok">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_stok"
+            android:id="@+id/edt_stokbarang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberSigned"
@@ -53,11 +58,30 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lo_deskripsi"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lo_stok"
+        android:hint="@string/txt_hint_deskripsi">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_deskripsibarang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textShortMessage"
+            android:minLines="1"
+            android:maxLines="4"
+            android:lines="4"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btn_addfoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lo_stok"
+        android:layout_below="@id/lo_deskripsi"
         android:text="Tambah Foto Barang"/>
 
     <ImageView

@@ -34,7 +34,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class ShoppingFeed extends BaseFragment {
-    public static final String TAG = "root_shopping";
     private RecyclerView rv;
     private FirebaseFirestore db;
     private FirebaseUser user;
@@ -73,7 +72,6 @@ public class ShoppingFeed extends BaseFragment {
         super.onStart();
 
         if (ConnectivityHelper.isConnectedToNetwork(getContext())){
-            Snackbar.make(getView(), "Mengambil data Shopping ....", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             adapter.startListening();
         } else {
             Snackbar.make(getView(), "Tidak Ada Koneksi Internet", Snackbar.LENGTH_LONG).setAction("Action", null).show();

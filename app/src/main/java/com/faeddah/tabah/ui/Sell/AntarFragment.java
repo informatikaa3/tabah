@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -53,6 +54,7 @@ public class AntarFragment extends BaseFragment {
 
     private FirebaseDatabase fd;
     private FirebaseFirestore db;
+    private  FirebaseUser user;
     private DatabaseReference database;
     private Spinner dropkota,droppengepul,dropjenis;
     private String fdjenis,fdkota,fdpengepul,keterangan;
@@ -70,6 +72,7 @@ public class AntarFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_sell_antar, container, false);
+        user = FirebaseAuth.getInstance().getCurrentUser();
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -109,7 +112,7 @@ public class AntarFragment extends BaseFragment {
                 String sppengepul = droppengepul.getSelectedItem().toString();
                 String key = "1";
                 keterangan = "bayar";
-                senddatatodb(new Antar(spjenis,keterangan,spkota.toString(),sppengepul,message));
+                senddatatodb(new Antar(spjenis,keterangan,spkota,sppengepul,message));
                 qrdialog(getContext());
             }
         });
@@ -186,8 +189,13 @@ public class AntarFragment extends BaseFragment {
     }
 
     public String getdbdata(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        userUid = user.getUid();
+        db.collection("users_detail").document().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                
+            }
+        })
+
         return userUid;
     }
 
