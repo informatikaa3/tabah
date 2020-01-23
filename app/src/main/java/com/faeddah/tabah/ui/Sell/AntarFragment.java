@@ -70,6 +70,7 @@ public class AntarFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_sell_antar, container, false);
+        getdbdata();
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -109,8 +110,7 @@ public class AntarFragment extends BaseFragment {
                 String sppengepul = droppengepul.getSelectedItem().toString();
                 String key = "1";
                 keterangan = "bayar";
-                senddatatodb(new Antar(spjenis,keterangan,spkota.toString(),sppengepul,message));
-                qrdialog(getContext());
+                senddatatodb(new Antar(spjenis, keterangan, spkota, sppengepul, userUid));
             }
         });
     }
@@ -144,7 +144,8 @@ public class AntarFragment extends BaseFragment {
         {
 //            imageView.setImageBitmap(bitmap);
             // SETAN ANJING TEU JALAN JALAN
-            final AlertDialog.Builder alertadd = new AlertDialog.Builder(ctx);
+            final AlertDialog.Builder alertadd = new AlertDialog.Builder(ctx)
+                    .setTitle("Tunjukan Pada Petugas");
             LayoutInflater factory = LayoutInflater.from(ctx);
             final View viewcek = factory.inflate(R.layout.fragment_sell_antar_qrcode, null);
             alertadd.setView(viewcek);
@@ -157,6 +158,27 @@ public class AntarFragment extends BaseFragment {
             });
             alertadd.show();
         }
+    }
+
+    public void senddatatodb(Antar antar) {
+//        database = FirebaseDatabase.getInstance().getReference();
+//        database.child("transaksi_jbs").push().setValue(antar);
+        this.db = FirebaseFirestore.getInstance();
+        db.collection("transaksi_jbs").add(antar).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                Log.d(TAG, "DocumentSnapshot successfully written!");
+                DocumentReference docRef = task.getResult();
+                message = docRef.getId();
+                Log.v("KEY", message);
+                qrdialog(getContext());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error writing document", e);
+            }
+        });
     }
 
     public Bitmap CreateImage(String message) throws WriterException
@@ -191,25 +213,5 @@ public class AntarFragment extends BaseFragment {
         return userUid;
     }
 
-    public void senddatatodb(Antar antar) {
-//        database = FirebaseDatabase.getInstance().getReference();
-//        database.child("transaksi_jbs").push().setValue(antar);
-        this.db = FirebaseFirestore.getInstance();
-        db.collection("transaksi_jbs").add(antar).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentReference> task) {
-                Log.d(TAG, "DocumentSnapshot successfully written!");
-                DocumentReference docRef = task.getResult();
-                message = docRef.getId();
-                Log.v("KEY", message);
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error writing document", e);
-            }
-        });
-        Toast.makeText(getContext(), "CEK DB MASUK", Toast.LENGTH_SHORT).show();
-    }
+
 }
