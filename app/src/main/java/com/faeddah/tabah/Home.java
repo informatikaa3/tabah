@@ -2,10 +2,13 @@ package com.faeddah.tabah;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,6 +41,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.IOException;
 import java.util.Objects;
 
 //import android.os.Bundle;
@@ -58,6 +62,7 @@ public class Home extends BaseActivity {
     private Menu menu;
     private TextView tvProfileNamaNav, tvSaldoNav;
     private ImageView imgProfilNav;
+
     private long terakhirklik;
 
     @Override
@@ -237,6 +242,7 @@ public class Home extends BaseActivity {
         }
 
     }
+
 
     public void setCount(Context context, String count , Menu menu) {
         swMenuItem = menu.findItem(R.id.swMenuItem);

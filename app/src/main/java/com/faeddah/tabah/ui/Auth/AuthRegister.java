@@ -30,7 +30,12 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
 
 public class AuthRegister extends BaseFragment {
@@ -39,12 +44,15 @@ public class AuthRegister extends BaseFragment {
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener stateListener;
     private FirebaseUser user;
+    private FirebaseFirestore db;
     private UserProfileChangeRequest userProfile;
     private TextView tvLogin;
     private Button btnRegister;
     private TextInputEditText edtEmail, edtPassword, edtPasswordSip, edtNama;
     private ProgressBar progressBar;
-
+    private Map<String, Object> dataUser = new HashMap<>();
+    private  String defaulImgUser = "https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/foto_jualbarang%2FdefaultUser.png?alt=media&token=32c9a465-b130-4212-9add-79da5b700213";
+    private static final String namaCollection = "users_detail";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +63,11 @@ public class AuthRegister extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_auth_register, container, false);
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
         findViews(view);
         initViews(view);
         initListeners(view);
-//        AppCompatActivity activity = (AppCompatActivity) view.getContext();
-//        Toast.makeText(getContext(), String.valueOf(activity.getSupportFragmentManager().getBackStackEntryCount()), Toast.LENGTH_SHORT).show();
         return view;
     }
 
@@ -95,7 +103,6 @@ public class AuthRegister extends BaseFragment {
     @Override
     public void initListeners(View view) {
         final AppCompatActivity activity = (AppCompatActivity) view.getContext();
-        auth = FirebaseAuth.getInstance();
         stateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -192,15 +199,28 @@ public class AuthRegister extends BaseFragment {
                     user = FirebaseAuth.getInstance().getCurrentUser();
                     userProfile = new UserProfileChangeRequest.Builder()
                             .setDisplayName(nama)
-                            .setPhotoUri(Uri.parse("https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/defaultUser.png?alt=media&token=89135dc6-0a5d-418b-bd38-6e937b7ee79e"))
+                            .setPhotoUri(Uri.parse(defaulImgUser))
                             .build();
                     user.updateProfile(userProfile);
+                    simpanKeFirestore();
                     progressBar.setVisibility(8);
                     showSnackBarMessage(email+ " Berhasil Didaftarkan");
                     updateUI(1);
                 }
             }
         });
+    }
+
+    private void simpanKeFirestore(){
+        dataUser.put("imgUrl", defaulImgUser);
+        dataUser.put("hakAkses","user_only");
+        dataUser.put("alamat", "belum di setting");
+        dataUser.put("telp", "belum di setting");
+        dataUser.put("nama", user.getDisplayName());
+        dataUser.put("uid", user.getUid());
+        dataUser.put("imgUrl", defaulImgUser);
+        db.collection(namaCollection).document().set(dataUser);
+
     }
 
 

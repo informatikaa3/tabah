@@ -12,7 +12,7 @@ import com.faeddah.tabah.R;
 import com.faeddah.tabah.model.Shopping;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.type.Date;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +20,14 @@ import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterShopping.SellViewHolder> {
 
-    private String judulBarang, deskripsiBarang, uidOwner,uidBarang, imgUrl;
-//    private int hargaBarang, stokBarang;
-//    private Date tanggalPosting;
+    private String judulBarang, deskripsiBarang, uidOwner,uidBarang, imgUrl, hargaBarang, stokBarang, tanggalPosting;
+    private DateFormat dateFormat;
 
     public AdapterShopping(@Nullable FirestoreRecyclerOptions<Shopping> options) {
         super(options);
@@ -32,21 +35,19 @@ public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterS
 
     @Override
     protected void onBindViewHolder(@NonNull final SellViewHolder holder, int position, @NonNull final Shopping model) {
-//        hargaBarang = String.valueOf(hargaBarang);
-//        stokBarang = stokBarang.toString();
-////        tanggalPosting = tanggalPosting;
-
-
+        hargaBarang = String.valueOf(model.getHargaBarang());
+        stokBarang = String.valueOf(model.getStokBarang());
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        tanggalPosting = dateFormat.format(model.getTanggalPosting());
+        uidOwner = model.getUidOwner();
         judulBarang = model.getJudulBarang();
         deskripsiBarang = model.getDeskripsiBarang();
         imgUrl = model.getImgUrl();
         uidBarang = model.getUidBarang();
         uidOwner = model.getUidOwner();
 
-
         holder.judul_barang.setText(judulBarang);
-//        holder.deskripsi_barang.setText(deskripsiBarang);
-        holder.hargaBarang.setText("sgadajskhdghdjasgdh");
+        holder.hargaBarang.setText("Rp. "+hargaBarang);
         Glide.with(holder.itemView.getContext())
                 .load(imgUrl)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -56,42 +57,14 @@ public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterS
         Bundle data = new Bundle();
         data.putString("judul_barang", judulBarang);
         data.putString("deskripsi_barang", deskripsiBarang);
-        data.putString("harga_barang", "");
-        data.putString("img_sell", imgUrl);
+        data.putString("harga_barang", hargaBarang);
+        data.putString("img_url", imgUrl);
+        data.putString("uid_owner",uidOwner);
+        data.putString("tanggal_posting", tanggalPosting);
+
+
 
         holder.card.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_shopping_detail,data));
-
-//        holder.card.setOnClickListener(new View.OnClickListener() {
-//
-//            private long terakhirklik = 0;
-//            private String judul_barang = model.getJudul_barang();
-//            private String deskripsi_barang = model.getDeskripsi_barang();
-//            private String harga_barang = String.valueOf(model.getHarga_barang());
-//            private String imgurl_sell = model.getImgUrl();
-//
-//            @Override
-//            public void onClick(View v) {
-//                // fix klik buburudulan
-//                if (SystemClock.elapsedRealtime() - terakhirklik < 1000) {
-//                    return;
-//                }
-//                terakhirklik = SystemClock.elapsedRealtime();
-//
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                Toast.makeText(activity.getApplicationContext(),model.getJudul_barang(), Toast.LENGTH_SHORT).show();
-//
-//
-//                Bundle oper = new Bundle();
-//                oper.putString("judul_barang", judul_barang);
-//                oper.putString("deskripsi_barang", deskripsi_barang);
-//                oper.putString("harga_barang", harga_barang);
-//                oper.putString("img_sell", imgurl_sell);
-//
-//                ShoppingDetail sellDetail = new ShoppingDetail();
-//                sellDetail.setArguments(oper);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.feed_shopping, sellDetail).addToBackStack(ShoppingFeed.TAG).commit();
-//            }
-//        });
 
     }
 
@@ -115,8 +88,8 @@ public class AdapterShopping extends FirestoreRecyclerAdapter<Shopping, AdapterS
             card =  itemView.findViewById(R.id.card_item_sell);
             img_barang = itemView.findViewById(R.id.img_sell);
             judul_barang = itemView.findViewById(R.id.tv_jdlBarang);
-//            deskripsi_barang = itemView.findViewById(R.id.tv_sell_detail);
             hargaBarang = itemView.findViewById(R.id.tv_hargaBarang);
         }
     }
+
 }
