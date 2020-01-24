@@ -1,12 +1,8 @@
 package com.faeddah.tabah;
 
 import android.os.Bundle;
-
 import androidx.annotation.Nullable;
-
 import com.faeddah.tabah.ui.Auth.AuthLogin;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Auth extends BaseActivity{
 
@@ -24,10 +20,6 @@ public class Auth extends BaseActivity{
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1 ){
-            finish();
-        }
-
         super.onBackPressed();
     }
 
@@ -53,7 +45,6 @@ public class Auth extends BaseActivity{
         }
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragmentFrame, mAuthLogin, mAuthLogin.TAG)
-                .addToBackStack(null)
                 .commit();
     }
 }

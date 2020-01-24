@@ -10,14 +10,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.Nullable;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.faeddah.tabah.Auth;
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;

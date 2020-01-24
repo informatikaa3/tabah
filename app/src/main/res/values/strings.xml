@@ -67,6 +67,8 @@
     <string name="txt_hint_stok">Stok</string>
     <string name="txt_hint_jualbarang">Jual Barang</string>
     <string name="txt_hint_deskripsi">Deksripsi</string>
+    <string name="txt_hint_telpon">Telpon</string>
+    <string name="txt_hint_simpanperubahan">Simpan Perubahan</string>
 
     <string-array name="planets_array">
         <item>Mercury</item>

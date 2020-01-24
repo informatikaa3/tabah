@@ -41,7 +41,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="352dp"
+        android:layout_height="match_parent"
         android:background="@drawable/asset_shape"
         android:padding="24dp">
 
@@ -53,7 +53,12 @@
             android:textColorHint="@android:color/black">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:layout_marginLeft="4dp"
                 android:id="@+id/edt_email"
+                android:enabled="false"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:background="@color/fui_transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -78,11 +83,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lo_nama"
-            android:hint="@string/txt_hint_password">
+            android:hint="@string/txt_hint_telpon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_tlp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:maxLines="1"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,11 +108,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Button
+            android:id="@+id/btn_updatedata"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lo_alamat"
+            android:layout_marginTop="10dp"
+            android:text="@string/txt_hint_simpanperubahan" />
 
         <Button
             android:id="@+id/btn_upgrade"
-            android:layout_width="145dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/asset_shape"
@@ -112,12 +128,22 @@
 
         <Button
             android:id="@+id/btn_gantipw"
-            android:layout_width="145dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/asset_shape"
             android:text="ganti password" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lo_email"
+            android:indeterminate="true" />
 
 
     </RelativeLayout>

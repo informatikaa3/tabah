@@ -75,7 +75,7 @@ public class Scanner extends BaseFragment {
     public void findViews(View view) {
         btnscanner = view.findViewById(R.id.btn_scanner);
         btnscannersave = view.findViewById(R.id.btn_scanner_save);
-//        resultscanner = view.findViewById(R.id.result_scanner);
+        resultscanner = view.findViewById(R.id.result_scanner);
         llmid = view.findViewById(R.id.ll_keterangan);
 
         tvketerangan = view.findViewById(R.id.tv_scanner_keterangan);
@@ -114,7 +114,7 @@ public class Scanner extends BaseFragment {
         btnscannersave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gtvketerangan == "bayar") {
+                if (gtvketerangan.equals("bayar")) {
                     setdata();
                     btnscanner.setVisibility(View.VISIBLE);
                     resultscanner.setVisibility(View.VISIBLE);

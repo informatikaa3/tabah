@@ -7,43 +7,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
+import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
-import com.faeddah.tabah.adapter.AdapterShopping;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class ShoppingDetail extends BaseFragment {
 
     private String judul_barang,deskripsi_barang,harga_barang,imgUrl, uidOwner, namaOwner, imgUrlOwner, tanggalPosting;
+    private FirebaseAuth auth;
+    private FirebaseAuth.AuthStateListener stateListener;
+    private FirebaseFirestore db;
+    private FirebaseUser user;
     private TextView tv_jdlsell, tv_deskripsi, tv_price, tvOwnername, tvTglPosting;
     private ImageView imgview, imgOwnernya;
-    private FirebaseFirestore db;
-
-    public ShoppingDetail() {}
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private static final String namaKoleksi = "users_detail";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,7 +36,8 @@ public class ShoppingDetail extends BaseFragment {
 
         View view = inflater.inflate(R.layout.fragment_shopping_detail,container, false);
         db = FirebaseFirestore.getInstance();
-
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -61,11 +47,13 @@ public class ShoppingDetail extends BaseFragment {
 
     @Override
     public void onStart() {
+        auth.addAuthStateListener(stateListener);
         super.onStart();
     }
 
     @Override
     public void onStop() {
+        auth.addAuthStateListener(stateListener);
         super.onStop();
     }
 
@@ -95,28 +83,38 @@ public class ShoppingDetail extends BaseFragment {
             imgUrl = arg.getString("img_url");
             tanggalPosting = arg.getString("tanggal_posting");
             uidOwner = arg.getString("uid_owner");
-            db.collection("users_detail")
-                    .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    imgUrlOwner = document.get("imgUrl").toString();
-                                    namaOwner = document.get("nama").toString();
-                                    tvOwnername.setText(namaOwner);
-                                    tvTglPosting.setText(tanggalPosting);
-                                    Glide.with(getView())
-                                            .load(imgUrlOwner)
-                                            .onlyRetrieveFromCache(true)
-                                            .into(imgOwnernya);
-                                }
-                            } else {
-                                Log.d("Shooping detail :  ", "Error getting documents: ", task.getException());
-                            }
-                        }
-                    });
+            stateListener = new FirebaseAuth.AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                    if (user != null) {
+                        db.collection(namaKoleksi)
+                                .whereEqualTo("uid", uidOwner)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                imgUrlOwner = document.get("imgUrl").toString();
+                                                namaOwner = document.get("nama").toString();
+                                            }
+                                            if (isAdded()){
+                                                tvOwnername.setText(namaOwner);
+                                                tvTglPosting.setText(tanggalPosting);
+                                                Glide.with(getView())
+                                                        .load(imgUrlOwner)
+                                                        .onlyRetrieveFromCache(true)
+                                                        .into(imgOwnernya);
 
+                                            }
+                                        } else {
+                                            Log.d("Shooping detail :  ", "Error getting documents: ", task.getException());
+                                        }
+                                    }
+                                });
+                    }
+                }
+            };
             tv_jdlsell.setText(judul_barang);
             tv_deskripsi.setText(deskripsi_barang);
             tv_price.setText("Rp "+harga_barang);
@@ -124,8 +122,6 @@ public class ShoppingDetail extends BaseFragment {
                     .load(imgUrl)
                     .onlyRetrieveFromCache(true)
                     .into(imgview);
-
-
         }
     }
 

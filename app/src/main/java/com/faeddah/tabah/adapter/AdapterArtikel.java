@@ -1,35 +1,23 @@
 package com.faeddah.tabah.adapter;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.navigation.NavArgs;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.R;
 import com.faeddah.tabah.model.Artikel;
-import com.faeddah.tabah.ui.Home.ArtikelDetail;
-import com.faeddah.tabah.ui.Home.ArtikelFeed;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.model.mutation.ArrayTransformOperation;
 
 
 public class AdapterArtikel extends FirestoreRecyclerAdapter<Artikel, AdapterArtikel.ArtikelViewHolder> {

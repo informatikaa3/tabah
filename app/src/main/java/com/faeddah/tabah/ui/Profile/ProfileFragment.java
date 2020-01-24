@@ -1,25 +1,19 @@
 package com.faeddah.tabah.ui.Profile;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.bumptech.glide.Glide;
@@ -27,8 +21,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -36,15 +35,19 @@ public class ProfileFragment extends BaseFragment {
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener stateListener;
     private FirebaseUser user;
+    private FirebaseFirestore db;
     private TextView tvProfilnama, tvprofilsaldo;
     private ImageView imgProfil;
     private ImageButton btnTopup,btnEditProfil,btnpengepul;
-    private String uid, nama, email, tlp, imgurl;
+    private String uid, nama, email, tlp, imgurl, alamat,saldo;
+    private static final String namaKoleksi = "users_detail";
+    private Bundle data = new Bundle();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        db = FirebaseFirestore.getInstance();
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -77,54 +80,63 @@ public class ProfileFragment extends BaseFragment {
     public void initViews(View view) {
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        if (user != null) {
-            // status user login
-            uid = user.getUid();
-            nama = user.getDisplayName();
-            email = user.getEmail();
-            tlp = user.getPhoneNumber();
-            imgurl = String.valueOf(user.getPhotoUrl());
+        stateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (user != null) {
+                    db.collection(namaKoleksi)
+                            .whereEqualTo("uid", user.getUid())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            uid = user.getUid();
+                                            nama = document.get("nama").toString();
+                                            email = user.getEmail();
+                                            tlp = document.get("telp").toString();
+                                            imgurl = String.valueOf(user.getPhotoUrl());
+                                            alamat = document.get("alamat").toString();
+                                            saldo = document.get("saldo").toString();
 
-            tvProfilnama.setText(nama);
-            tvprofilsaldo.setText("Rp.10.000");
-            Glide.with(getContext())
-                    .load(imgurl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .apply(new RequestOptions().centerCrop())
-                    .into(imgProfil);
+                                            data.putString("uid", uid);
+                                            data.putString("nama", nama);
+                                            data.putString("imgurl", imgurl);
+                                            data.putString("email", email);
+                                            data.putString("telp", tlp);
+                                            data.putString("alamat", alamat);
+                                        }
+                                        if (isAdded()){
+                                            tvProfilnama.setText(nama);
+                                            tvprofilsaldo.setText(saldo);
+                                            Glide.with(getContext())
+                                                    .load(imgurl)
+                                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                                    .apply(new RequestOptions().centerCrop())
+                                                    .into(imgProfil);
 
-        }
+                                        }
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+                }
+            }
+        };
     }
 
     @Override
     public void initListeners(View view) {
-        btnTopup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                topupDialog(getContext());
-            }
-        });
-        btnpengepul.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_scanner));
-
-        stateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    Bundle data =  new Bundle();
-                    data.putString("uid", uid);
-                    data.putString("nama", nama);
-                    data.putString("imgurl", imgurl);
-                    data.putString("email", email);
-                    data.putString("telp", tlp);
-                    btnEditProfil.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_editprofile, data));
-                } else {
-                    // status User  logout
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
+            btnTopup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    topupDialog(getContext());
                 }
-            }
-        };
-
+            });
+            btnpengepul.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_scanner));
+            btnEditProfil.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.nav_profile_editprofile, data));
 
     }
 
@@ -152,4 +164,5 @@ public class ProfileFragment extends BaseFragment {
                 .create();
         dialog.show();
     }
+
 }
