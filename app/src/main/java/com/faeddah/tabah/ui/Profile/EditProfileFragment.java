@@ -3,6 +3,7 @@ package com.faeddah.tabah.ui.Profile;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,7 +24,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
+import com.faeddah.tabah.ui.Auth.AuthRegister;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -53,6 +55,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -74,7 +77,7 @@ public class EditProfileFragment extends BaseFragment {
     private TextView tvgantifoto;
     private ImageView imgProfil;
     private Button upgrade, gantipw, update;
-    private ProgressBar progressBar;
+    private ProgressDialog progressDialog;
     private AlertDialog dialog;
     private FirebaseAuth auth;
     private FirebaseUser user;
@@ -100,7 +103,6 @@ public class EditProfileFragment extends BaseFragment {
         user = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
         storageReference = getInstance().getReference();
-
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -130,7 +132,8 @@ public class EditProfileFragment extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-
+        progressDialog = new ProgressDialog(getContext(), R.style.Theme_AppCompat_Light_Dialog);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         if(!getArguments().isEmpty()){
             edtemail.setText(getArguments().getString("email"));
             edtnama.setText(getArguments().getString("nama"));
@@ -164,7 +167,7 @@ public class EditProfileFragment extends BaseFragment {
         upgrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Prerequisite upgrade account ", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Prerequisite upgrade account ", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -180,13 +183,11 @@ public class EditProfileFragment extends BaseFragment {
     private void showDialogGantiPw(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        final LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.fragment_profile_dialog_gantipw, null);
         edtpasswordganti =  view.findViewById(R.id.edt_password);
         edtpasswordsipganti = view.findViewById(R.id.edt_sip_password);
         tvpesan= view.findViewById(R.id.tv_pesan);
-        progressBar = view.findViewById(R.id.progress);
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.MULTIPLY);
         builder.setView(view);
         builder.setTitle("Ganti Password");
         builder.setPositiveButton("Ganti", new DialogInterface.OnClickListener() {
@@ -230,7 +231,9 @@ public class EditProfileFragment extends BaseFragment {
                     return;
                 }
 
-                progressBar.setVisibility(View.VISIBLE);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage("Menganti password ...");
+                progressDialog.show();
                 user.updatePassword(pwsip)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -238,13 +241,13 @@ public class EditProfileFragment extends BaseFragment {
                                 if (task.isSuccessful()) {
                                     edtpasswordganti.getText().clear();
                                     edtpasswordsipganti.getText().clear();
-                                    progressBar.setVisibility(View.GONE);
+                                    progressDialog.dismiss();
                                     tvpesan.setVisibility(View.VISIBLE);
                                     tvpesan.setText("Password berhasil diganti");
                                 } else {
                                     edtpasswordganti.getText().clear();
                                     edtpasswordsipganti.getText().clear();
-                                    progressBar.setVisibility(View.GONE);
+                                    progressDialog.dismiss();
                                     tvpesan.setVisibility(View.VISIBLE);
                                     tvpesan.setText("Gagal ...");
                                 }
@@ -296,11 +299,9 @@ public class EditProfileFragment extends BaseFragment {
                 }).create().show();
     }
 
-    private void updateData(){
+
+    private void uploadFoto(){
         // upload foto
-        progressBar = getView().findViewById(R.id.progressbar);
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.MULTIPLY);
-        progressBar.setVisibility(View.VISIBLE);
         String rString = UUID.randomUUID().toString();
         final String namafile = storagePath+rString;
 
@@ -316,7 +317,15 @@ public class EditProfileFragment extends BaseFragment {
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
                 Toast.makeText(getContext(), "gagalUpload", Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
+            }
+        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setCancelable(false);
+//                progressDialog.setMessage("Proses Upload : " + progress +"%");
+                progressDialog.setMessage("Uploading ...");
+                progressDialog.show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -328,82 +337,133 @@ public class EditProfileFragment extends BaseFragment {
                         .addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
-                                if (task.isSuccessful()){
-
-                                }
+                                if (task.isSuccessful()){ }
                             }
                         }).addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         newImageUri = uri;
-                         // update firestore
-                        db.collection(namaCollection)
-                                .whereEqualTo("uid", user.getUid())
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                documentId = document.getId();
-                                                oldfoto = document.get("imgUrl").toString();
-                                            } if (isAdded()){
-                                                newnama = edtnama.getText().toString();
-                                                newtelp = edtnotlp.getText().toString();
-                                                newimg = newImageUri.toString();
-                                                newalamat = edtalamat.getText().toString();
-
-                                                updates.put("nama", newnama);
-                                                updates.put("alamat", newalamat);
-                                                updates.put("telp", newtelp);
-                                                updates.put("imgUrl", newimg);
-                                                db.collection(namaCollection).document(documentId).
-                                                        update(updates)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                                                                        .setDisplayName(newnama)
-                                                                        .setPhotoUri(newImageUri)
-                                                                        .build();
-                                                                user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        progressBar.setVisibility(View.GONE);
-                                                                        showSnackBarMessage("Berhasil di perbaharui");
-//                                                                        StorageReference storageReferenceDel = storage.getReferenceFromUrl(oldfoto);
-//                                                                        storageReferenceDel.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                                            @Override
-//                                                                            public void onSuccess(Void aVoid) {
-//                                                                                Toast.makeText(getContext(), "Berhasil Diupdate", Toast.LENGTH_SHORT).show();
-//                                                                            }
-//                                                                        });
-                                                                    }
-                                                                }).addOnFailureListener(new OnFailureListener() {
-                                                                    @Override
-                                                                    public void onFailure(@NonNull Exception e) {
-                                                                        progressBar.setVisibility(View.GONE);
-                                                                    }
-                                                                });
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.w(TAG, "Error updating document", e);
-                                                            }
-                                                        });
-
-                                            }
+                        db.collection(namaCollection).whereEqualTo("uid", user.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if(task.isSuccessful()){
+                                    for (QueryDocumentSnapshot document : task.getResult()){
+                                        documentId = document.getId();
+                                        oldfoto = document.get("imgUrl").toString();
+                                    } if (isAdded()){
+                                        if (!oldfoto.equals(AuthRegister.defaulImgUser)){
+                                            db.collection(namaCollection).document(documentId).update("imgUrl",newImageUri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(oldfoto);
+                                                    storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                                                                .setPhotoUri(newImageUri)
+                                                                .build();
+                                                            user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Void> task) {
+                                                                    showSnackBarMessage("Foto profil diperbaharui");
+                                                                    progressDialog.dismiss();
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    showSnackBarMessage("Something Wrong");
+                                                                    progressDialog.dismiss();
+                                                                }
+                                                            });
+                                                            Log.d(TAG, "onSuccess: deleted file");
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception exception) {
+                                                            showSnackBarMessage("Something Wrong");
+                                                            progressDialog.dismiss();
+                                                            Log.d(TAG, "onFailure: did not delete file");
+                                                        }
+                                                    });
+                                                }
+                                            });
                                         } else {
-                                            Log.d(TAG, "Error getting documents: ", task.getException());
+                                            db.collection(namaCollection).document(documentId).update("imgUrl", newImageUri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()){
+                                                        showSnackBarMessage("Foto profil diperbaharui");
+                                                        progressDialog.dismiss();
+                                                    }
+                                                }
+                                            });
                                         }
                                     }
-                                });
+                                }
+                            }
+                        });
                     }
                 });
             }
         });
+    }
+
+    private void updateData(){
+        // updateData
+        progressDialog.setMessage("Updating data ...");
+        progressDialog.show();
+        db.collection(namaCollection)
+                .whereEqualTo("uid", user.getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                documentId = document.getId();
+                            } if (isAdded()){
+                                newnama = edtnama.getText().toString();
+                                newtelp = edtnotlp.getText().toString();
+                                newalamat = edtalamat.getText().toString();
+                                updates.put("nama", newnama);
+                                updates.put("alamat", newalamat);
+                                updates.put("telp", newtelp);
+                                db.collection(namaCollection).document(documentId).
+                                        update(updates)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                                                        .setPhotoUri(newImageUri)
+                                                        .build();
+                                                user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        showSnackBarMessage("Profil diperbaharui ...");
+                                                        progressDialog.dismiss();
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        showSnackBarMessage("Something Wrong");
+                                                        progressDialog.dismiss();
+                                                    }
+                                                });
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 
     // Handle Permission sama Result
@@ -443,9 +503,11 @@ public class EditProfileFragment extends BaseFragment {
                 imgProfil.setDrawingCacheEnabled(true);
                 imgProfil.buildDrawingCache();
                 imgProfil.setImageBitmap(capturedfoto);
+                uploadFoto();
             } else if (requestCode == GALERY_CODE){
                 imageUri = data.getData();
                 imgProfil.setImageURI(imageUri);
+                uploadFoto();
             }
         }
     }

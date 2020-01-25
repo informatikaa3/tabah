@@ -52,7 +52,7 @@ public class AuthRegister extends BaseFragment {
     private ProgressBar progressBar;
     private Map<String, Object> dataUser = new HashMap<>();
     private String nama, email, pw, pwsip;
-    private  String defaulImgUser = "https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/foto_jualbarang%2FdefaultUser.png?alt=media&token=32c9a465-b130-4212-9add-79da5b700213";
+    public static final String defaulImgUser = "https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/foto_users%2FdefaultUser.png?alt=media&token=6b80d190-cec5-492b-8ca4-bc037143f3e7";
     private static final String namaCollection = "users_detail";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

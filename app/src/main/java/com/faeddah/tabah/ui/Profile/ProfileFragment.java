@@ -96,7 +96,7 @@ public class ProfileFragment extends BaseFragment {
                                             nama = document.get("nama").toString();
                                             email = user.getEmail();
                                             tlp = document.get("telp").toString();
-                                            imgurl = String.valueOf(user.getPhotoUrl());
+                                            imgurl = document.get("imgUrl").toString();
                                             alamat = document.get("alamat").toString();
                                             saldo = document.get("saldo").toString();
 
