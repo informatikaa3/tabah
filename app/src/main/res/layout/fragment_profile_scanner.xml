@@ -15,11 +15,14 @@
             android:layout_height="wrap_content"
             android:text="SCANNER"/>
         <TextView
-            android:layout_below="@+id/btn_scanner"
-            android:id="@+id/result_scanner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="OR"/>
+        <Button
+            android:id="@+id/btn_pejemputan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Penjemputan"/>
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="10dp"
@@ -89,6 +92,41 @@
                 android:textColor="@android:color/black"/>
         </LinearLayout>
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Total Berat"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+            <TextView
+                android:id="@+id/tv_scanner_total_berat"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+        </LinearLayout><LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Total Harga"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"/>
+        <TextView
+            android:id="@+id/tv_scanner_total_harga"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"/>
+    </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -141,14 +179,45 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:textColor="@android:color/black"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
             <TextView
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:textSize="20dp"
+                android:textColor="@android:color/black" />
+            <TextView
+                android:id="@+id/tv_scanner_alamat"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+<!--            <Button-->
+<!--                android:id="@+id/btn_scanner_jemput"-->
+<!--                android:layout_width="120dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:text="Penjemputan"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:background="@color/clay_primary"-->
+<!--                android:layout_marginRight="100dp"/>-->
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@android:color/black" />
             <Button
                 android:id="@+id/btn_scanner_save"
                 android:layout_width="80dp"

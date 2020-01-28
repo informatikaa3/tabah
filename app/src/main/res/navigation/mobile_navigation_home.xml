@@ -65,6 +65,50 @@
     </fragment>
 
 
+<!--    Hierarcy View Sell-->
+    <fragment
+        android:id="@+id/nav_sell"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Sell.SellFragment"
+        tools:layout="@layout/fragment_sell">
+        <action
+            android:id="@+id/action_ke_antardetail"
+            app:destination="@id/nav_sell_antar"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sell_antar"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Sell.AntarFragment"
+        tools:layout="@layout/fragment_sell_antar">
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sell_jemput"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Sell.JemputFragmentFeed"
+        tools:layout="@layout/fragment_sell_jemput">
+        <action
+            android:id="@+id/action_ke_jemputdetail"
+            app:destination="@id/nav_sell_jemput_detail"
+            app:enterAnim="@anim/enter_slide_down"
+            app:exitAnim="@anim/exit_slide_down"
+            app:popEnterAnim="@anim/pop_enter_slide_up"
+            app:popExitAnim="@anim/pop_exit_slide_up"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sell_jemput_detail"
+        android:label="@null"
+        android:name="com.faeddah.tabah.ui.Sell.JemputFragmentDetail"
+        tools:layout="@layout/fragment_sell_jemput_detail">
+    </fragment>
+
+
 <!--    Hierarcy View Shopping-->
     <fragment
         android:id="@+id/nav_shopping"
@@ -119,11 +163,6 @@
     </fragment>
 
 <!-- Hierarcy Jual Beli -->
-    <fragment
-        android:id="@+id/nav_sell"
-        android:label="@null"
-        android:name="com.faeddah.tabah.ui.Sell.SellFragment"
-        tools:layout="@layout/fragment_sell" />
 
     <fragment
         android:id="@+id/nav_settings"

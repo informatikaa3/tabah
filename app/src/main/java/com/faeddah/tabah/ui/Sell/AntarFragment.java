@@ -49,12 +49,12 @@ public class AntarFragment extends BaseFragment {
 
     public String[] jenis = new String[]{"plastik", "kayu", "elektronik"};
     public String[] kota = new String[]{"bandung", "jakarta", "surabaya"};
-    public String[] pengepul = new String[]{"1","ujang","nativ"};
+    public String[] berat = new String[]{"1","2","3","4","5"};
 
     private FirebaseDatabase fd;
     private FirebaseFirestore db;
     private DatabaseReference database;
-    private Spinner dropkota,droppengepul,dropjenis;
+    private Spinner dropkota,dropberat,dropjenis;
     private String fdjenis,fdkota,fdpengepul,keterangan;
     private Button btnsave;
     private Bitmap myBitmap;
@@ -70,7 +70,6 @@ public class AntarFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_sell_antar, container, false);
-        getdbdata();
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -81,7 +80,7 @@ public class AntarFragment extends BaseFragment {
     public void findViews(View view) {
         btnsave = view.findViewById(R.id.btn_antar_save);
         dropkota = view.findViewById(R.id.drop_kota_sell_jemput);
-        droppengepul = view.findViewById(R.id.drop_pengepul_sell);
+        dropberat = view.findViewById(R.id.drop_pengepul_sell);
         dropjenis = view.findViewById(R.id.drop_jenis_sell_jemput);
     }
 
@@ -91,11 +90,11 @@ public class AntarFragment extends BaseFragment {
     //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapterll = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, jenis);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, kota);
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, pengepul);
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, berat);
     //set the spinners adapter to the previously created one.
         dropjenis.setAdapter(adapterll);
         dropkota.setAdapter(adapter);
-        droppengepul.setAdapter(adapter1);
+        dropberat.setAdapter(adapter1);
     }
 
 
@@ -105,12 +104,16 @@ public class AntarFragment extends BaseFragment {
         btnsave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String spkota = dropkota.getSelectedItem().toString();
-                String spjenis = dropjenis.getSelectedItem().toString();
-                String sppengepul = droppengepul.getSelectedItem().toString();
-                String key = "1";
-                keterangan = "bayar";
-                senddatatodb(new Antar(spjenis, keterangan, spkota, sppengepul, userUid));
+                if(getdbdata().equals("")) {
+                    notloginDialog(getContext());
+                }else{
+                    String spkota = dropkota.getSelectedItem().toString();
+                    String spjenis = dropjenis.getSelectedItem().toString();
+                    String sppengepul = dropberat.getSelectedItem().toString();
+                    String key = "1";
+                    keterangan = "bayar";
+                    senddatatodb(new Antar(spjenis, keterangan, spkota, sppengepul, userUid));
+                }
             }
         });
     }
@@ -207,10 +210,34 @@ public class AntarFragment extends BaseFragment {
         return bitmap;
     }
 
+    public void notloginDialog(Context ctx){
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        AlertDialog dialog = new AlertDialog.Builder(ctx)
+                .setTitle("Konfirmasi")
+                .setMessage("Silahkan Login Terlebih Dahulu")
+//                .setView(inflater.inflate(R.layout.fragment_sell_jemput_detail_conf,null))
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //TODO : show progress bar,
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+
     public String getdbdata(){
+        String result = new String();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        userUid = user.getUid();
-        return userUid;
+        if(user != null) {
+            userUid = user.getUid();
+            result = user.getUid();
+        }else{
+            result = "";
+        }
+        return result;
     }
 
 
