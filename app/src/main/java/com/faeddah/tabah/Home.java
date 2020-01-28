@@ -2,50 +2,43 @@ package com.faeddah.tabah;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.faeddah.tabah.ui.CountDrawable;
-import com.faeddah.tabah.ui.Home.ArtikelDetail;
-import com.faeddah.tabah.ui.Home.ArtikelFeed;
-import com.faeddah.tabah.ui.Profile.EditProfileFragment;
-import com.faeddah.tabah.ui.Profile.ProfileFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.io.IOException;
-import java.util.Objects;
-
-//import android.os.Bundle;
-
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 public class Home extends BaseActivity {
 
     public static final String TAG = Home.class.getSimpleName();
@@ -53,6 +46,7 @@ public class Home extends BaseActivity {
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener stateListener;
     private FirebaseUser user;
+    private FirebaseFirestore db;
     private DrawerLayout drawerLayout;
     private LayerDrawable icon;
     private NavigationView navigationView;
@@ -62,7 +56,8 @@ public class Home extends BaseActivity {
     private Menu menu;
     private TextView tvProfileNamaNav, tvSaldoNav;
     private ImageView imgProfilNav;
-
+    private static final String namaKoleksi = "users_detail";
+    private String docid, saldo,nama,imgurl;
     private long terakhirklik;
 
     @Override
@@ -70,6 +65,8 @@ public class Home extends BaseActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         initNavigation();
         initInstanceFirebase();
         findViews();
@@ -99,7 +96,6 @@ public class Home extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        Toast.makeText(this, String.valueOf(getSupportFragmentManager().getBackStackEntryCount()), Toast.LENGTH_SHORT).show();
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
@@ -111,7 +107,6 @@ public class Home extends BaseActivity {
 
     @Override
     public void findViews() {
-
         itemLogout = navigationView.getMenu().findItem(R.id.nav_logout);
         itemProfile = navigationView.getMenu().findItem(R.id.nav_profile);
         tvProfileNamaNav = navigationView.getHeaderView(0).findViewById(R.id.tv_profilnama);
@@ -121,32 +116,66 @@ public class Home extends BaseActivity {
 
     @Override
     public void initViews() {
-
         stateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                // status user login
                 if (user != null) {
-                    // status user login
+                    db.collection(namaKoleksi)
+                            .whereEqualTo("uid", user.getUid())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            docid = document.getId();
+                                        }
+                                    } else {
+                                        Log.d(TAG, "Error getting documents: ", task.getException());
+                                    }
+                                    // Snapshot data realtime
+                                    final DocumentReference documentReference = db.collection(namaKoleksi).document(docid);
+                                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                                            if(e != null){
+                                                Toast.makeText(Home.this, "Listen gagal", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            if(documentSnapshot !=null && documentSnapshot.exists()){
+                                                nama = documentSnapshot.get("nama").toString();
+                                                saldo = documentSnapshot.get("saldo").toString();
+                                                imgurl = documentSnapshot.get("imgUrl").toString();
+                                                tvSaldoNav.setText(saldo);
+                                                tvProfileNamaNav.setText(nama);
+                                                Glide.with(getApplicationContext())
+                                                        .load(imgurl)
+                                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                                        .apply(new RequestOptions().centerCrop())
+                                                        .into(imgProfilNav);
+//                                                Toast.makeText(Home.this, "Captured Snapshot !!!!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    tvSaldoNav.setVisibility(View.VISIBLE);
                     itemLogout.setVisible(true);
                     itemProfile.setVisible(true);
-                    tvSaldoNav.setVisibility(1);
-                    tvProfileNamaNav.setText(user.getDisplayName());
-                    tvSaldoNav.setText("Rp.10.000");
-                    Glide.with(getApplicationContext())
-                            .load(user.getPhotoUrl())
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .apply(new RequestOptions().centerCrop())
-                            .into(imgProfilNav);
-//                    swMenuItem.setChecked(false);
+                    itemProfile.setChecked(false);
 
                 } else {
                     // status user logout
                     tvProfileNamaNav.setTextSize(20);
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
+
             }
         };
+
     }
 
     @Override
@@ -157,6 +186,7 @@ public class Home extends BaseActivity {
                     auth.signOut();
                     finish();
                     startActivity(getIntent());
+                    Toast.makeText(getApplicationContext(), "Logout Berhasil", Toast.LENGTH_SHORT).show();
                     return true;
                 }
             });
@@ -209,7 +239,7 @@ public class Home extends BaseActivity {
 
         if (user != null) {
             // set badge count
-            setCount(this, "99+",menu);
+            setCount(this, "0",menu);
         } else {
             // set icon menu untuk login
             swMenuItem = menu.findItem(R.id.swMenuItem);
@@ -265,6 +295,8 @@ public class Home extends BaseActivity {
 
     private void showLogin(){
         Intent intent = new Intent(this, Auth.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

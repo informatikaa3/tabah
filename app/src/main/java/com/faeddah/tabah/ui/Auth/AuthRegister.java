@@ -51,7 +51,8 @@ public class AuthRegister extends BaseFragment {
     private TextInputEditText edtEmail, edtPassword, edtPasswordSip, edtNama;
     private ProgressBar progressBar;
     private Map<String, Object> dataUser = new HashMap<>();
-    private  String defaulImgUser = "https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/foto_jualbarang%2FdefaultUser.png?alt=media&token=32c9a465-b130-4212-9add-79da5b700213";
+    private String nama, email, pw, pwsip;
+    public static final String defaulImgUser = "https://firebasestorage.googleapis.com/v0/b/tabah-b8b1f.appspot.com/o/foto_users%2FdefaultUser.png?alt=media&token=6b80d190-cec5-492b-8ca4-bc037143f3e7";
     private static final String namaCollection = "users_detail";
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,10 +131,10 @@ public class AuthRegister extends BaseFragment {
             @Override
             public void onClick(View v) {
                 String regexEmail = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-                String nama = String.valueOf(edtNama.getText());
-                String email = String.valueOf(edtEmail.getText());
-                String pw = String.valueOf(edtPassword.getText());
-                String pwsip = String.valueOf(edtPasswordSip.getText());
+                nama = String.valueOf(edtNama.getText());
+                email = String.valueOf(edtEmail.getText());
+                pw = String.valueOf(edtPassword.getText());
+                pwsip = String.valueOf(edtPasswordSip.getText());
 
 
                 if (TextUtils.isEmpty(nama)){
@@ -161,7 +162,7 @@ public class AuthRegister extends BaseFragment {
                     edtPasswordSip.setError(getString(R.string.hint_password_beda));
                     return;
                 }
-                
+
                 edtPasswordSip.onEditorAction(EditorInfo.IME_ACTION_DONE);
                 edtNama.setCursorVisible(false);
                 edtEmail.setCursorVisible(false);
@@ -174,7 +175,7 @@ public class AuthRegister extends BaseFragment {
     }
 
     private void regis (final String email, String pw, final String nama){
-        progressBar.setVisibility(1);
+        progressBar.setVisibility(View.VISIBLE);
         auth.createUserWithEmailAndPassword(email, pw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -187,13 +188,17 @@ public class AuthRegister extends BaseFragment {
                     } catch(FirebaseAuthWeakPasswordException e) {
                         edtPassword.setError(getString(R.string.hint_password_lemah));
                         edtPassword.requestFocus();
+                        progressBar.setVisibility(View.GONE);
                     } catch(FirebaseAuthInvalidCredentialsException e) {
                         edtEmail.setError(getString(R.string.hint_email_tidak_valid));
                         edtEmail.requestFocus();
+                        progressBar.setVisibility(View.GONE);
                     } catch(FirebaseAuthUserCollisionException e) {
                         showSnackBarMessage(getString(R.string.hint_email_terdaftar));
+                        progressBar.setVisibility(View.GONE);
                     } catch(Exception e) {
                         Log.e(TAG, e.getMessage());
+                        progressBar.setVisibility(View.GONE);
                     }
                 } else {
                     user = FirebaseAuth.getInstance().getCurrentUser();
@@ -203,7 +208,7 @@ public class AuthRegister extends BaseFragment {
                             .build();
                     user.updateProfile(userProfile);
                     simpanKeFirestore();
-                    progressBar.setVisibility(8);
+                    progressBar.setVisibility(View.GONE);
                     showSnackBarMessage(email+ " Berhasil Didaftarkan");
                     updateUI(1);
                 }
@@ -216,7 +221,8 @@ public class AuthRegister extends BaseFragment {
         dataUser.put("hakAkses","user_only");
         dataUser.put("alamat", "belum di setting");
         dataUser.put("telp", "belum di setting");
-        dataUser.put("nama", user.getDisplayName());
+        dataUser.put("nama", nama);
+        dataUser.put("saldo", 0);
         dataUser.put("uid", user.getUid());
         dataUser.put("imgUrl", defaulImgUser);
         db.collection(namaCollection).document().set(dataUser);
@@ -248,7 +254,7 @@ public class AuthRegister extends BaseFragment {
             edtPassword.setCursorVisible(true);
             edtPasswordSip.setCursorVisible(true);
         }
-        
+
     }
 
 

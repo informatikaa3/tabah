@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,28 +23,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.ByteArrayOutputStream;
-import java.net.URI;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 
 import static com.google.firebase.storage.FirebaseStorage.getInstance;
@@ -58,8 +49,7 @@ public class ShoppingAdd extends BaseFragment {
     private Map<String, Object> dataJual = new HashMap<>();
     private FirebaseUser user;
     private FirebaseFirestore db;
-    private StorageReference storageReference, storageReferenceke2;
-
+    private StorageReference storageReference;
     private static final String namaCollection = "item_jualbarang";
     private static final  String storagePath = "foto_jualbarang/";
     private static final int CAMERA_PERMISSION_CODE = 100;
@@ -67,9 +57,7 @@ public class ShoppingAdd extends BaseFragment {
     private static final int GALERY_CODE = 300;
     private static final int CAMERA_REQUEST = 1888;
     private static final int WRITE_EXTERNAL_REQUEST = 1999;
-
     private Uri imageUri;
-    private String photo;
     private Bitmap capturedfoto;
 
 
@@ -79,10 +67,7 @@ public class ShoppingAdd extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_shopping_add_produk, container, false);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-
         storageReference = getInstance().getReference();
-        storageReference = getInstance().getReference();
-
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -125,7 +110,7 @@ public class ShoppingAdd extends BaseFragment {
 
     }
 
-    public void pilihFoto(){
+    private void pilihFoto(){
         String opsi[] = {"Kamera", "Galeri"};
         AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
         dialog.setTitle("Pilih foto :")
@@ -160,8 +145,6 @@ public class ShoppingAdd extends BaseFragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         switch (requestCode) {
             case CAMERA_REQUEST: {
                 ContentValues values = new ContentValues();
@@ -183,87 +166,26 @@ public class ShoppingAdd extends BaseFragment {
             }
             break;
         }
-
-
-//        if (requestCode == CAMERA_PERMISSION_CODE)
-//        {
-//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-//            {
-//                Toast.makeText(getActivity(), "camera permission granted", Toast.LENGTH_LONG).show();
-//                ContentValues values = new ContentValues();
-//                values.put(MediaStore.Images.Media.TITLE, "");
-//                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-//            }
-//            else
-//            {
-//                Toast.makeText(getActivity(), "camera permission denied", Toast.LENGTH_LONG).show();
-//            }
-//        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Toast.makeText(getContext(), "request code : " + String.valueOf(requestCode)+ " || result code : " + String.valueOf(resultCode), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), "request code : " + String.valueOf(requestCode)+ " || result code : " + String.valueOf(resultCode), Toast.LENGTH_SHORT).show();
         if (resultCode == Activity.RESULT_OK){
             if (requestCode == CAMERA_REQUEST ){
                 assert data !=null;
-//                imageUri = data.getData();
-//                Toast.makeText(getContext(), imageUri.toString(), Toast.LENGTH_SHORT).show();
-////                uploadFoto(imageUri);
                 imgpreview.setDrawingCacheEnabled(true);
                 imgpreview.buildDrawingCache();
                 capturedfoto =  (Bitmap) data.getExtras().get("data");
                 imgpreview.setImageBitmap(capturedfoto);
-//                Toast.makeText(getContext(), data.getData().toString(), Toast.LENGTH_SHORT).show();
-
             } else if (requestCode == GALERY_CODE){
-                imgpreview.setImageBitmap((Bitmap) data.getExtras().get("data"));
+                imageUri = data.getData();
+                imgpreview.setImageURI(imageUri);
             }
         }
-//        {
-//            capturedfoto = (Bitmap) data.getExtras().get("data");
-//            photo = getEncodedString(capturedfoto);
-////            setDataToDataBase();
-//        }
     }
 
-    private String getEncodedString(Bitmap bitmap){
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100, os);
-
-      /* or use below if you want 32 bit images
-
-       bitmap.compress(Bitmap.CompressFormat.PNG, (0–100 compression), os);*/
-        byte[] imageArr = os.toByteArray();
-        return Base64.encodeToString(imageArr, Base64.URL_SAFE);
-
-    }
-
-    private void uploadFoto(Uri uri){
-        String rString = UUID.randomUUID().toString();
-        String namafile = storagePath+rString;
-        storageReference.child(namafile).putFile(uri)
-                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getContext(), "Uploading ...", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), "gagal", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
-
-
-    }
 
     private void uploadAllData(){
         String rString = UUID.randomUUID().toString();
@@ -284,7 +206,11 @@ public class ShoppingAdd extends BaseFragment {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                taskSnapshot
+                        .getMetadata()
+                        .getReference()
+                        .getDownloadUrl()
+                        .addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         dataJual.put("judulBarang", edtnama.getText().toString());

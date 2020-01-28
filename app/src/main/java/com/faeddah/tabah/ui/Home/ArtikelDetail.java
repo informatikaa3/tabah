@@ -65,7 +65,6 @@ public class ArtikelDetail extends BaseFragment {
 
     @Override
     public void initViews(View view) {
-        Toast.makeText(getContext(), getArguments().getString("judul"), Toast.LENGTH_SHORT).show();
         Bundle bundle = getArguments();
 
         if (bundle != null){

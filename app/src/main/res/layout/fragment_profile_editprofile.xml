@@ -30,8 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textSize="14sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:clickable="true"
             android:autoLink="all"
             android:textAlignment="center"
@@ -39,88 +38,111 @@
     </LinearLayout>
 
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="352dp"
+        android:layout_height="match_parent"
         android:background="@drawable/asset_shape"
         android:padding="24dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/lo_email"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/fui_email_hint"
-            android:textColorHint="@android:color/black">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_email"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="@string/fui_email_hint"
+                android:textColorHint="@android:color/black">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_marginLeft="4dp"
+                    android:id="@+id/edt_email"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:cursorVisible="false"
+                    android:background="@color/fui_transparent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/lo_nama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lo_email"
-            android:hint="@string/txt_hint_nama">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_nama"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_nama"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lo_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="@string/txt_hint_nama">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/lo_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lo_nama"
-            android:hint="@string/txt_hint_password">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lo_nama"
+                android:hint="@string/txt_hint_telpon">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_tlp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberSigned"
+                    android:maxLines="1"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/lo_alamat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lo_password"
-            android:hint="@string/txt_hint_alamat">
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_alamat"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lo_alamat"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lo_password"
+                android:hint="@string/txt_hint_alamat">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_alamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_upgrade"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/asset_shape"
-            android:text="Upgrade Account" />
+            <Button
+                android:id="@+id/btn_updatedata"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lo_alamat"
+                android:text="@string/txt_hint_simpanperubahan" />
 
-        <Button
-            android:id="@+id/btn_gantipw"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/asset_shape"
-            android:text="ganti password" />
+            <Button
+                android:id="@+id/btn_upgrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/btn_updatedata"
+                android:background="@drawable/asset_shape"
+                android:text="Upgrade Account" />
 
+            <Button
+                android:id="@+id/btn_gantipw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/btn_updatedata"
+                android:background="@drawable/asset_shape"
+                android:text="ganti password" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </ScrollView>
 
 
 

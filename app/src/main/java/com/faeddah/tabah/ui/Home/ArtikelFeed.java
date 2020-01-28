@@ -4,14 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 import androidx.annotation.Nullable;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.navigation.Navigation;
-
 import com.faeddah.tabah.BaseFragment;
 import com.faeddah.tabah.R;
 import com.faeddah.tabah.adapter.AdapterArtikel;
@@ -30,8 +25,6 @@ public class ArtikelFeed extends BaseFragment {
     private CollectionReference reference;
     private AdapterArtikel adapter;
     private Query query;
-    private TextView tvNotif;
-    private View view;
 
     public ArtikelFeed() {}
 
@@ -55,7 +48,6 @@ public class ArtikelFeed extends BaseFragment {
         super.onStart();
 
         if (ConnectivityHelper.isConnectedToNetwork(getContext())){
-//            Snackbar.make(getView(), "Mengambil data artikel ....", Snackbar.LENGTH_SHORT).setAction("Action", null).show();
             adapter.startListening();
         } else {
             Snackbar.make(getView(), "Tidak Ada Koneksi Internet", Snackbar.LENGTH_LONG).setAction("Action", null).show();
